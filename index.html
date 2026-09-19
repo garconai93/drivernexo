@@ -639,6 +639,12 @@
       border-color: var(--accent-warm);
       color: var(--accent-warm);
     }
+    .quiz-mode-btn[data-mode="real"] { color: var(--accent-2); }
+    .quiz-mode-btn[data-mode="real"].active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+    }
     .quiz-cat-select-wrap { margin-bottom: 16px; display: flex; align-items: center; gap: 10px; font-size: 14px; flex-wrap: wrap; }
     .quiz-cat-select-wrap select {
       padding: 8px 12px; border-radius: 8px;
@@ -1365,6 +1371,7 @@
           <div class="quiz-modes">
             <button class="quiz-mode-btn active" data-mode="rapid" type="button">⚡ Rapid (5)</button>
             <button class="quiz-mode-btn" data-mode="examen" type="button">🎯 Simulare examen (26)</button>
+            <button class="quiz-mode-btn" data-mode="real" type="button">📚 Real DRPCIV (1432)</button>
             <span class="quiz-mode-label" id="quiz-mode-label">Mod rapid · 5 intrebari</span>
           </div>
           <div class="quiz-cat-select-wrap">
@@ -2225,26 +2232,43 @@
     });
     $('quiz-restart').addEventListener('click', restartQuiz);
 
-    // ----- Moduri Quiz (Rapid / Categorie / Examen) -----
+    // ----- Moduri Quiz (Rapid / Categorie / Examen / Real) -----
     const CATS = [...new Set(QUIZ_QUESTIONS.map(q => q.cat))].sort();
-    let quizMode = 'rapid'; // 'rapid' | 'categoria' | 'examen'
+    let quizMode = 'rapid'; // 'rapid' | 'categoria' | 'examen' | 'real'
     let quizTimer = null;
+    let REAL_QUESTIONS = null; // loaded async from questions.json
 
     function shuffle(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
 
     function buildDeck() {
       if (quizMode === 'rapid') {
-        // 5 intrebari random din toate
         return shuffle(QUIZ_QUESTIONS).slice(0, 5);
       } else if (quizMode === 'categoria') {
         const cat = quizState.activeCat || CATS[0];
         const inCat = QUIZ_QUESTIONS.filter(q => q.cat === cat);
         return shuffle(inCat).slice(0, Math.min(10, inCat.length));
       } else if (quizMode === 'examen') {
-        // 26 intrebari random, toate categoriile
         return shuffle(QUIZ_QUESTIONS).slice(0, 26);
+      } else if (quizMode === 'real') {
+        if (!REAL_QUESTIONS || !REAL_QUESTIONS.length) return [];
+        // Pick 10 random from real dataset
+        return shuffle(REAL_QUESTIONS).slice(0, 10);
       }
       return [];
+    }
+
+    // Convert real question format to quiz format
+    function adaptReal(q) {
+      return {
+        cat: 'DRPCIV Real #' + q.id,
+        q: q.title,
+        opts: q.variants.map((v, i) => ({
+          k: v.letter,
+          t: v.text,
+          correct: v.letter === q.correctLetter,
+          exp: q.explanation || ''
+        }))
+      };
     }
 
     function startTimer(seconds, onEnd) {
@@ -2272,23 +2296,45 @@
       clearInterval(quizTimer);
       quizMode = mode;
       quizState.activeCat = cat;
-      quizState.deck = buildDeck();
+      let deckRaw = buildDeck();
+      // Adapt real questions to quiz format
+      if (mode === 'real') {
+        quizState.deck = deckRaw.map(adaptReal);
+      } else {
+        quizState.deck = deckRaw;
+      }
       quizState.i = 0;
       quizState.score = 0;
-      quizState.answers = []; // pentru review
+      quizState.answers = [];
       $('quiz-body').style.display = 'block';
       $('quiz-result').classList.remove('show');
-      $('quiz-mode-label').textContent = mode === 'rapid' ? 'Mod rapid · 5 intrebari' : mode === 'categoria' ? 'Mod categorie · ' + cat : 'Simulare examen · 26 intrebari · 30 min';
+      $('quiz-mode-label').textContent =
+        mode === 'rapid' ? 'Mod rapid · 5 intrebari' :
+        mode === 'categoria' ? 'Mod categorie · ' + cat :
+        mode === 'examen' ? 'Simulare examen · 26 intrebari · 30 min' :
+        'Chestionar DRPCIV real · 10 intrebari random din 1432';
 
       if (mode === 'examen') {
         $('quiz-timer-wrap').style.display = 'flex';
         startTimer(30 * 60, () => {
-          // Timp expirat - finalizeaza automat
           quizState.timedOut = true;
           showResult();
         });
       } else {
         $('quiz-timer-wrap').style.display = 'none';
+      }
+
+      if (mode === 'real' && (!REAL_QUESTIONS || !REAL_QUESTIONS.length)) {
+        // Show loading state
+        $('quiz-q').textContent = 'Se incarca 1432 intrebari reale DRPCIV...';
+        $('quiz-opts').innerHTML = '';
+        fetch('questions.json').then(r => r.json()).then(data => {
+          REAL_QUESTIONS = data;
+          startQuiz('real');
+        }).catch(err => {
+          $('quiz-q').textContent = 'Eroare la incarcare: ' + err.message;
+        });
+        return;
       }
 
       loadQuestion();
