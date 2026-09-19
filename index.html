@@ -2238,8 +2238,6 @@
     let quizTimer = null;
     let REAL_QUESTIONS = null; // loaded async from questions.json
 
-    function shuffle(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
-
     function buildDeck() {
       if (quizMode === 'rapid') {
         return shuffle(QUIZ_QUESTIONS).slice(0, 5);
