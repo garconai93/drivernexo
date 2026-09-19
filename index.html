@@ -831,6 +831,115 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
+    /* ---------- Learning environment (1432 real questions) ---------- */
+    .learn-controls {
+      display: grid; grid-template-columns: 1fr auto auto; gap: 10px;
+      margin-bottom: 18px; padding: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      align-items: center;
+    }
+    @media (max-width: 720px) { .learn-controls { grid-template-columns: 1fr; } }
+    .learn-search {
+      width: 100%; padding: 10px 14px; border-radius: 8px;
+      background: var(--bg-elev); color: var(--text);
+      border: 1px solid var(--border-strong); font-size: 14px;
+    }
+    .learn-search:focus { outline: none; border-color: var(--accent); }
+    .learn-select, .learn-count {
+      padding: 10px 14px; border-radius: 8px;
+      background: var(--bg-elev); color: var(--text);
+      border: 1px solid var(--border-strong); font-size: 14px;
+      cursor: pointer; min-width: 180px;
+    }
+    .learn-count { min-width: auto; font-family: 'JetBrains Mono', monospace; cursor: default; color: var(--text-muted); }
+    .learn-cats {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+    }
+    .learn-cat-chip {
+      padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--text-muted); cursor: pointer; font-size: 13px;
+      transition: all 0.15s ease;
+    }
+    .learn-cat-chip:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+    .learn-cat-chip.active {
+      background: rgba(110, 231, 183, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .learn-cat-chip .num { font-size: 11px; opacity: 0.7; margin-left: 4px; }
+    .learn-list { display: grid; gap: 12px; max-height: 600px; overflow-y: auto; padding-right: 6px; }
+    @media (max-width: 720px) { .learn-list { max-height: 500px; } }
+    .learn-list::-webkit-scrollbar { width: 8px; }
+    .learn-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 4px; }
+    .learn-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+    .learn-card {
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+      transition: border-color 0.15s ease;
+    }
+    .learn-card:hover { border-color: var(--border-strong); }
+    .learn-card.seen { border-left: 3px solid var(--accent); }
+    .learn-card.marked { border-left: 3px solid var(--danger); }
+    .learn-card-head {
+      display: flex; gap: 12px; align-items: flex-start;
+      cursor: pointer;
+    }
+    .learn-card-num {
+      flex-shrink: 0; font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; color: var(--text-dim); padding-top: 2px;
+      min-width: 50px;
+    }
+    .learn-card-q {
+      flex: 1; font-size: 15px; line-height: 1.5; color: var(--text);
+    }
+    .learn-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .learn-icon-btn {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-muted); cursor: pointer;
+      display: grid; place-items: center;
+      transition: all 0.15s ease; font-size: 14px;
+    }
+    .learn-icon-btn:hover { background: rgba(255,255,255,0.10); color: var(--text); }
+    .learn-icon-btn.mark { background: rgba(248, 113, 113, 0.2); color: var(--danger); border-color: var(--danger); }
+    .learn-icon-btn.seen { background: rgba(110, 231, 183, 0.2); color: var(--accent); border-color: var(--accent); }
+    .learn-card-body {
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: none; font-size: 14px;
+    }
+    .learn-card-body.show { display: block; }
+    .learn-card-correct {
+      padding: 10px 14px; background: rgba(110, 231, 183, 0.10);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px; margin-bottom: 10px;
+    }
+    .learn-card-correct .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase; }
+    .learn-card-correct .val { font-size: 14px; color: var(--text); margin-top: 2px; }
+    .learn-card-explain {
+      padding: 12px 14px; background: rgba(56, 189, 248, 0.06);
+      border-left: 3px solid var(--accent-2);
+      border-radius: 6px; font-size: 13px; line-height: 1.55;
+      color: var(--text-muted);
+    }
+    .learn-card-explain .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--accent-2); text-transform: uppercase; display: block; margin-bottom: 4px; }
+    .learn-empty, .learn-loading {
+      padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 14px;
+    }
+    .learn-progress {
+      display: flex; gap: 8px; margin-bottom: 18px;
+      padding: 12px 14px;
+      background: rgba(110, 231, 183, 0.06);
+      border: 1px solid rgba(110, 231, 183, 0.2);
+      border-radius: var(--radius); font-size: 13px; align-items: center;
+    }
+    .learn-progress .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    }
+    .learn-progress .pct { margin-left: auto; font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700; }
+
     /* ---------- Common mistakes ---------- */
     .mistakes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     @media (max-width: 720px) { .mistakes-grid { grid-template-columns: 1fr; } }
@@ -1502,174 +1611,44 @@
     </div>
   </section>
 
-  <!-- ===== Mediu de invatare (flashcards + erori comune) ===== -->
+  <!-- ===== Mediu de invatare COMPLET (1432 intrebari DRPCIV reale) ===== -->
   <section id="mediu-invatare">
     <div class="container">
       <div class="section-head reveal">
         <span class="section-eyebrow">Mediu de invatare</span>
-        <h2 class="section-title">Invata pe scurt, nu din manuale de 400 de pagini</h2>
+        <h2 class="section-title">Toate cele 1432 intrebari reale DRPCIV, organizate pe capitole</h2>
         <p class="section-sub">
-          9 flashcard-uri cu cele mai frecvente reguli pe care elevii le incurca la examen. Apasa
-          pentru a intoarce si a vedea raspunsul. Plus cele 6 greseli care picie 8 din 10 candidati.
+          Cauta dupa cuvinte cheie, filtreaza pe capitol, citeste explicatia. Marcheaza intrebarile
+          grele - le poti repeta ulterior din sectiunea Progres. Totul se incarca local pe telefonul tau.
         </p>
       </div>
 
-      <div class="flash-grid">
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">01 · Distante</span>
-              <h4>Care e distanta minima fata de vehiculul din fata in localitate?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Minim ~1 secunda</strong> la fiecare ~15 km/h. La 50 km/h in localitate, pastreaza ~3 lungimi de masina (~15 m). In afara localitatii, regula celor 2 secunde se aplica: alege un reper fix si numara "21, 22".</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">02 · Prioritate</span>
-              <h4>Cine are prioritate la o intersectie nedirijata?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Vehiculul care vine din dreapta</strong>, cu exceptia intersectiilor cu sens giratoriu (prioritate au cei din cerc) si a celor cu semn "Cedeaza trecerea". Autobuzele si tramvaiele au prioritate la iesirea din statie.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">03 · Viteza</span>
-              <h4>Care e viteza maxima in localitate fara limitare speciala?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>50 km/h</strong>. In afara localitatii: 90 km/h (130 km/h pe autostrada pentru categoria B). Pe drum cu zapada, ploaie torentiala sau vizibilitate sub 100 m: <strong>reducere cu 20 km/h</strong> fara a depasi 50 km/h in localitate.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">04 · Lumini</span>
-              <h4>Ce lumini folosesti pe timp de zi in afara localitatii?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Lumile de intalnire (faza scurta)</strong> sunt obligatorii si ziua, in afara localitatii. Faza lunga se foloseste noaptea pe drum neiluminat, cu obligatia comutarii pe faza scurta la intalnirea altui vehicul sau la distanta de 200 m in fata.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">05 · Alcool</span>
-              <h4>Care e limita de alcool in sange pentru soferii cu vechime sub 1 an?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>0.00 g/l</strong> - toleranta zero. Pentru soferii cu experienta, limita este 0.40 g/l aer expirat (0,80 g/l sange). O bere consumata se elimina complet in ~3-4 ore la un adult de 80 kg - dar acest timp variaza mult.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">06 · Oprire</span>
-              <h4>Unde NU ai voie sa opresti cu masina?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Pe trecerea de pietoni, pe pista de biciclete, la mai putin de 25 m de colt</strong> la intersectii, pe poduri, in tuneluri, pe banda de urgenta a autostrazii. Oprirea = stationare pentru imbarcare/debarcare; stationarea = parcare mai lunga de 5 minute.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">07 · Centura</span>
-              <h4>Cine trebuie sa poarte centura in masina?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Toti ocupantii</strong>, fara exceptie. Copiii sub 12 ani sau sub 150 cm trebuie sa foloseasca sistem de retinere adaptat varstei (scaun auto sau inaltator). Soferul raspunde contraventional daca un pasager din spate nu poarta centura.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">08 · Depasire</span>
-              <h4>Pe ce banda se depaseste?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Doar pe banda din stanga</strong>, pe drumuri cu sens unic sau cu dublu sens unde marcajul permite. Este interzisa depasirea: pe trecere de pietoni, in intersectie nedirijata, la curba, pe pod, in tunel, la cota maxima. Depasirea tramvaiului: pe dreapta doar daca are cale proprie si sens unic.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flash reveal" data-flip>
-          <div class="flash-inner">
-            <div class="flash-face flash-front">
-              <span class="flash-tag">09 · Permis</span>
-              <h4>Ce trebuie sa ai obligatoriu la tine cand conduci?</h4>
-              <span class="flash-hint">Click →</span>
-            </div>
-            <div class="flash-face flash-back">
-              <p><strong>Permisul de conducere, certificatul de inmatriculare, asigurarea RCA</strong> si cartea de identitate (pentru persoane fizice). ITP-ul este obligatoriu pentru masini mai vechi de 3 ani (anual dupa 8 ani). Fara aceste documente = amenda + retinere permis.</p>
-            </div>
-          </div>
-        </div>
+      <div class="learn-controls reveal">
+        <input type="text" class="learn-search" id="learn-search" placeholder="🔍 Cauta in intrebari, raspunsuri, explicatii..." />
+        <select class="learn-select" id="learn-sort">
+          <option value="default">Ordine implicita</option>
+          <option value="random">Aleatoriu</option>
+          <option value="unseen">Nevazute intai</option>
+          <option value="marked">Marcate intai</option>
+        </select>
+        <span class="learn-count" id="learn-count">—</span>
       </div>
 
-      <div style="margin-top: 56px;">
-        <div class="section-head reveal" style="text-align: left; margin-bottom: 24px;">
-          <span class="section-eyebrow">Erori care picie 8 din 10 candidati</span>
-          <h3 class="section-title" style="font-size: 28px;">Cele 6 greseli pe care le vedem la toti elevii</h3>
-        </div>
+      <div class="learn-cats reveal" id="learn-cats">
+        <button class="learn-cat-chip active" data-cat="all">Toate <span class="num">1432</span></button>
+      </div>
 
-        <div class="mistakes-grid">
-          <div class="mistake reveal">
-            <h4>❌ Confunda "oprire" cu "stationare"</h4>
-            <p>Oprirea inseamna imbarcare/debarcare pasageri sau incarcare/descarcare. Stationarea inseamna parcare mai lunga de 5 minute. Reguli diferite, amenzi diferite - multi elevi raspund gresit la aceasta intrebare.</p>
-          </div>
-          <div class="mistake reveal">
-            <h4>❌ Nu stiu ca 50 km/h e limita implicita in localitate</h4>
-            <p>Unii cred ca limita e 60 sau 70 km/h. Daca nu exista semn, se aplica regula generala: 50 km/h in localitate, 90 km/h in afara. Marcajul rutier poate reduce, nu poate creste limita fara semn.</p>
-          </div>
-          <div class="mistake reveal">
-            <h4>❌ Incurca "Cedeaza trecerea" cu "Oprire obligatorie"</h4>
-            <p>Cedeaza = redu viteza si trece daca e liber. STOP = opreste complet, chiar daca pare liber. Multi trec prin STOP fara sa opreasca - principala cauza de respingere la proba practica.</p>
-          </div>
-          <div class="mistake reveal">
-            <h4>❌ Nu verifica oglinzile la marsarier</h4>
-            <p>Marsarierul se face DOAR dupa ce ai verificat oglinzile laterale si oglinda centrala, plus ai observant direct peste umar. 70% din candidatii respinsi la proba practica uita acest pas la plecare sau la intrarea in parcare.</p>
-          </div>
-          <div class="mistake reveal">
-            <h4>❌ Foloseste faza lunga la intalnirea altui vehicul</h4>
-            <p>Comutarea pe faza scurta se face la 200 m in fata de vehiculul care vine din sens opus si imediat la 100 m in spatele celui depasit. Daca nu comuti, orbesti pe celalalt sofer - 9 puncte penalizare la examen.</p>
-          </div>
-          <div class="mistake reveal">
-            <h4>❌ Nu acorda prioritate la trecerea de pietoni</h4>
-            <p>Chiar daca nu e nimeni pe trecere, reducerea vitezei e obligatorie cand te apropii. Prioritate au pietonii care intentioneaza clar sa treaca, dar gresit e sa accelerezi. Multi elevi pierd examenul din neatentie la o trecere.</p>
-          </div>
-        </div>
+      <div class="learn-progress reveal" id="learn-progress" style="display:none;">
+        <span class="dot"></span>
+        <span id="learn-progress-text">Progres: 0 vazute, 0 marcate</span>
+        <span class="pct" id="learn-progress-pct">0%</span>
+      </div>
+
+      <div class="learn-list reveal" id="learn-list">
+        <div class="learn-loading">📚 Se incarca baza cu 1432 intrebari DRPCIV reale...</div>
       </div>
     </div>
   </section>
-
-  <!-- ===== Progres (local, fara cont) ===== -->
   <section id="progres">
     <div class="container">
       <div class="section-head reveal">
@@ -2686,6 +2665,243 @@
         sel.addEventListener('change', () => setMode('categoria', sel.value));
       }
       setMode('rapid');
+    }
+
+    // ====== Learning environment (1432 real DRPCIV questions) ======
+    const LEARN_CAT_KEY = 'deb.learn.cat.v1';
+    const SEEN_KEY = 'deb.seen.v1';
+    let LEARN_DATA = null; // questions.json data
+    let LEARN_FILTER = 'all';
+    let LEARN_SORT = 'default';
+    let LEARN_SEARCH = '';
+    let LEARN_VIEW = 'default'; // for sort state
+    let LEARN_RENDER_LIMIT = 50; // render first N for perf
+
+    const LEARN_TOPICS = {
+      'acvaplanare|apa |ploaie|vizibilitate|ceata': 'Conducere pe ploaie',
+      'alcool|substanta|toleranta': 'Alcool si substante',
+      'ambliaj|ambreiaj': 'Ambreiaj',
+      'acceler|viteza|km/h': 'Viteza si distanta',
+      'distanta|distantei|reactie': 'Viteza si distanta',
+      'semnal luminos': 'Semnale luminoase',
+      'semafor': 'Semafoare',
+      'indicator|semn |circulatie': 'Indicatoare',
+      'prioritate|dreapta': 'Prioritate',
+      'oprire|stationare|parcare': 'Oprire si stationare',
+      'depasire|depaseste|depasiti': 'Depasire',
+      'centura|siguranta': 'Centura de siguranta',
+      'permis|documente|certificat|talon': 'Permis si documente',
+      'frana|franare|franati': 'Franare',
+      'bateria|motor|ulei |racire|combustibil': 'Mecanica auto',
+      'accident|ranit|hemorag|prim ajutor': 'Prim ajutor',
+      'noapte|faza |lumini': 'Lumini si noapte',
+      'autostrada|autostrazi': 'Autostrada',
+      'drum |sosea|carosabil': 'Drumuri',
+      'marsarier|mersul inapoi|intoarcere': 'Marsarier si intoarcere',
+      'politist|politiei|amenda': 'Politist si amenzi',
+      'pieton|trecere': 'Trecere pietoni',
+      'pana |pneuri|roata': 'Pneuri si defectiuni',
+      'tren |cale ferata|bariera': 'Trecere cale ferata',
+      'telefon': 'Telefon la volan',
+      'traseu|parcurs': 'Parcurs traseu',
+      'copii|pasager': 'Pasageri si copii',
+      'remorca|tractare|ansamblu': 'Remorci'
+    };
+
+    function getTopic(title) {
+      const t = title.toLowerCase();
+      for (const [pat, name] of Object.entries(LEARN_TOPICS)) {
+        const re = new RegExp(pat, 'i');
+        if (re.test(t)) return name;
+      }
+      return 'General';
+    }
+
+    function loadSeen() {
+      try { return JSON.parse(localStorage.getItem(SEEN_KEY)) || {}; } catch { return {}; }
+    }
+    function saveSeen(s) { localStorage.setItem(SEEN_KEY, JSON.stringify(s)); }
+    function markSeen(id) {
+      const s = loadSeen();
+      if (!s[id]) { s[id] = Date.now(); saveSeen(s); }
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function renderLearnCats() {
+      if (!LEARN_DATA) return;
+      const cats = {};
+      LEARN_DATA.forEach(q => { const t = getTopic(q.title); cats[t] = (cats[t] || 0) + 1; });
+      const container = $('learn-cats');
+      const items = Object.entries(cats).sort((a, b) => b[1] - a[1]);
+      let html = '<button class="learn-cat-chip active" data-cat="all">Toate <span class="num">' + LEARN_DATA.length + '</span></button>';
+      for (const [name, n] of items) {
+        html += '<button class="learn-cat-chip" data-cat="' + escapeHtml(name) + '">' + escapeHtml(name) + ' <span class="num">' + n + '</span></button>';
+      }
+      container.innerHTML = html;
+      container.querySelectorAll('.learn-cat-chip').forEach(b => {
+        b.addEventListener('click', () => {
+          container.querySelectorAll('.learn-cat-chip').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          LEARN_FILTER = b.dataset.cat;
+          saveCat(LEARN_FILTER);
+          renderLearnList();
+        });
+      });
+      // Restore last selected category
+      const saved = localStorage.getItem(LEARN_CAT_KEY);
+      if (saved && saved !== 'all') {
+        const btn = container.querySelector('[data-cat="' + saved + '"]');
+        if (btn) {
+          container.querySelectorAll('.learn-cat-chip').forEach(x => x.classList.remove('active'));
+          btn.classList.add('active');
+          LEARN_FILTER = saved;
+        }
+      }
+    }
+    function saveCat(c) { try { localStorage.setItem(LEARN_CAT_KEY, c); } catch {} }
+
+    function getFilteredQs() {
+      if (!LEARN_DATA) return [];
+      let qs = LEARN_DATA;
+      if (LEARN_FILTER !== 'all') qs = qs.filter(q => getTopic(q.title) === LEARN_FILTER);
+      if (LEARN_SEARCH) {
+        const s = LEARN_SEARCH.toLowerCase();
+        qs = qs.filter(q => {
+          const text = (q.title + ' ' + (q.explanation || '') + ' ' + q.variants.map(v => v.text).join(' ')).toLowerCase();
+          return text.includes(s);
+        });
+      }
+      const seen = loadSeen();
+      const marked = loadMarked();
+      if (LEARN_SORT === 'random') qs = shuffle(qs);
+      else if (LEARN_SORT === 'unseen') qs = qs.filter(q => !seen[q.id]).concat(qs.filter(q => seen[q.id]));
+      else if (LEARN_SORT === 'marked') qs = qs.filter(q => marked[q.id]).concat(qs.filter(q => !marked[q.id]));
+      return qs;
+    }
+
+    function renderLearnList() {
+      const list = $('learn-list');
+      if (!LEARN_DATA) {
+        list.innerHTML = '<div class="learn-loading">📚 Se incarca baza cu 1432 intrebari DRPCIV reale...</div>';
+        return;
+      }
+      const qs = getFilteredQs();
+      const total = qs.length;
+      $('learn-count').textContent = total + ' intrebari';
+      const seen = loadSeen();
+      const marked = loadMarked();
+      const seenInFilter = qs.filter(q => seen[q.id]).length;
+      const markedInFilter = qs.filter(q => marked[q.id]).length;
+      $('learn-progress').style.display = total > 0 ? 'flex' : 'none';
+      if (total > 0) {
+        const pct = Math.round((seenInFilter / total) * 100);
+        $('learn-progress-text').textContent = 'Vazute: ' + seenInFilter + '/' + total + ' · Marcate: ' + markedInFilter;
+        $('learn-progress-pct').textContent = pct + '%';
+      }
+      if (qs.length === 0) {
+        list.innerHTML = '<div class="learn-empty">Nicio intrebare gasita pentru acest filtru. Incearca alta categorie sau alt text.</div>';
+        return;
+      }
+      const slice = qs.slice(0, LEARN_RENDER_LIMIT);
+      let html = '';
+      slice.forEach((q, i) => {
+        const isSeen = seen[q.id];
+        const isMarked = !!marked[q.id];
+        const correctText = q.variants.find(v => v.letter === q.correctLetter);
+        const correctStr = correctText ? correctText.text : '?';
+        html += '<div class="learn-card' + (isSeen ? ' seen' : '') + (isMarked ? ' marked' : '') + '" data-id="' + q.id + '">';
+        html += '  <div class="learn-card-head">';
+        html += '    <div class="learn-card-num">#' + q.id + '</div>';
+        html += '    <div class="learn-card-q">' + escapeHtml(q.title) + '</div>';
+        html += '    <div class="learn-card-actions">';
+        html += '      <button class="learn-icon-btn' + (isSeen ? ' seen' : '') + '" data-act="seen" title="Marcheaza vazut">✓</button>';
+        html += '      <button class="learn-icon-btn' + (isMarked ? ' mark' : '') + '" data-act="mark" title="Marcheaza grea">⚑</button>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '  <div class="learn-card-body">';
+        html += '    <div class="learn-card-correct"><div class="lbl">Raspuns corect (' + q.correctLetter + ')</div><div class="val">' + escapeHtml(correctStr) + '</div></div>';
+        if (q.explanation) html += '    <div class="learn-card-explain"><span class="lbl">Explicatie</span>' + escapeHtml(q.explanation) + '</div>';
+        html += '  </div>';
+        html += '</div>';
+      });
+      if (qs.length > LEARN_RENDER_LIMIT) {
+        html += '<div class="learn-empty">Se afiseaza primele ' + LEARN_RENDER_LIMIT + ' din ' + total + '. Foloseste search-ul sau categoria pentru a ingusta.</div>';
+      }
+      list.innerHTML = html;
+
+      // Bind events
+      list.querySelectorAll('.learn-card-head').forEach(head => {
+        head.addEventListener('click', (e) => {
+          if (e.target.closest('[data-act]')) return;
+          const card = head.closest('.learn-card');
+          const id = parseInt(card.dataset.id);
+          markSeen(id);
+          card.classList.add('seen');
+          card.querySelector('[data-act="seen"]').classList.add('seen');
+          card.querySelector('.learn-card-body').classList.toggle('show');
+        });
+      });
+      list.querySelectorAll('[data-act="seen"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.learn-card');
+          const id = parseInt(card.dataset.id);
+          markSeen(id);
+          card.classList.add('seen');
+          btn.classList.add('seen');
+        });
+      });
+      list.querySelectorAll('[data-act="mark"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.learn-card');
+          const id = parseInt(card.dataset.id);
+          const nowMarked = toggleMark(id);
+          card.classList.toggle('marked', nowMarked);
+          btn.classList.toggle('mark', nowMarked);
+          renderProgress();
+        });
+      });
+    }
+
+    async function loadLearn() {
+      if (LEARN_DATA) return;
+      const list = $('learn-list');
+      try {
+        const r = await fetch('questions.json');
+        LEARN_DATA = await r.json();
+        renderLearnCats();
+        renderLearnList();
+      } catch (err) {
+        list.innerHTML = '<div class="learn-empty">❌ Eroare la incarcare: ' + escapeHtml(err.message) + '</div>';
+      }
+    }
+
+    // Lazy load on scroll into view
+    if (document.getElementById('mediu-invatare')) {
+      const learnSection = document.getElementById('mediu-invatare');
+      const obs = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !LEARN_DATA) {
+            loadLearn();
+            obs.unobserve(learnSection);
+          }
+        }
+      }, { rootMargin: '200px' });
+      obs.observe(learnSection);
+
+      // Search + sort handlers
+      $('learn-search').addEventListener('input', (e) => {
+        LEARN_SEARCH = e.target.value.trim();
+        renderLearnList();
+      });
+      $('learn-sort').addEventListener('change', (e) => {
+        LEARN_SORT = e.target.value;
+        renderLearnList();
+      });
     }
 
     // ====== PWA: register service worker ======
