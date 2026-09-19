@@ -616,6 +616,47 @@
     }
 
     /* ---------- Quiz section ---------- */
+    .quiz-modes {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+      padding: 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .quiz-mode-btn {
+      padding: 8px 14px; border-radius: 999px; font-size: 13px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-muted); cursor: pointer; transition: all 0.15s ease;
+      font-weight: 500;
+    }
+    .quiz-mode-btn:hover { background: rgba(255,255,255,0.10); color: var(--text); }
+    .quiz-mode-btn.active {
+      background: rgba(110, 231, 183, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .quiz-mode-btn[data-mode="examen"] { color: var(--accent-warm); }
+    .quiz-mode-btn[data-mode="examen"].active {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: var(--accent-warm);
+      color: var(--accent-warm);
+    }
+    .quiz-cat-select-wrap { margin-bottom: 16px; display: flex; align-items: center; gap: 10px; font-size: 14px; flex-wrap: wrap; }
+    .quiz-cat-select-wrap select {
+      padding: 8px 12px; border-radius: 8px;
+      background: var(--bg-elev); color: var(--text);
+      border: 1px solid var(--border-strong); font-size: 14px;
+      cursor: pointer;
+    }
+    .quiz-timer-wrap {
+      display: none; align-items: center; gap: 8px; margin-bottom: 12px;
+      padding: 10px 14px; background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.3); border-radius: var(--radius);
+      font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--accent-warm);
+    }
+    .quiz-timer-wrap .icon { font-size: 16px; }
+    .quiz-timer { font-weight: 700; letter-spacing: 0.04em; }
+    .quiz-timer.warn { color: var(--danger); animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: 0.5; } }
+    .quiz-mode-label { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
     .quiz-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 28px; align-items: start; }
     @media (max-width: 920px) { .quiz-wrap { grid-template-columns: 1fr; } }
     .quiz-card {
@@ -1321,6 +1362,20 @@
 
       <div class="quiz-wrap">
         <div class="quiz-card reveal">
+          <div class="quiz-modes">
+            <button class="quiz-mode-btn active" data-mode="rapid" type="button">⚡ Rapid (5)</button>
+            <button class="quiz-mode-btn" data-mode="examen" type="button">🎯 Simulare examen (26)</button>
+            <span class="quiz-mode-label" id="quiz-mode-label">Mod rapid · 5 intrebari</span>
+          </div>
+          <div class="quiz-cat-select-wrap">
+            <label for="quiz-cat-select">Sau alege capitol:</label>
+            <select id="quiz-cat-select"></select>
+          </div>
+          <div class="quiz-timer-wrap" id="quiz-timer-wrap">
+            <span class="icon">⏱️</span>
+            <span>Timp ramas:</span>
+            <span class="quiz-timer" id="quiz-timer">30:00</span>
+          </div>
           <div class="quiz-meta">
             <span class="pill" id="quiz-pill">Intrebarea 1 / 5</span>
             <span id="quiz-cat-wrap"><span class="quiz-cat" id="quiz-cat">Semnale luminoase</span></span>
@@ -1806,6 +1861,267 @@
           { k: 'D', t: 'Esti pe drum cu prioritate', correct: false, exp: 'Nu - "Cedeaza trecerea" e opusul prioritatii. Semaforul pentru tine e "treci cu prudenta daca drumul e liber".' }
         ]
       }
+      ,
+      {
+        cat: 'Viteza si distanta',
+        q: 'Ce distanta minima trebuie sa pastrezi fata de vehiculul din fata in localitate la 50 km/h?',
+        opts: [
+          { k: 'A', t: '1 metru pentru fiecare 10 km/h, deci minim 5 m', correct: false, exp: 'Regula simplificata prea putin. In localitate, la 50 km/h, pastreaza minim 3 lungimi de masina (~15 m) sau 1 secunda de reactie la fiecare 15 km/h.' },
+          { k: 'B', t: 'Aproximativ 3 lungimi de masina (circa 15 m)', correct: true, exp: 'Corect! Regula practica: 1 secunda la fiecare 15 km/h. La 50 km/h = ~3 secunde = ~42 m in conditii normale, dar minim 15 m in localitate. In afara localitatii se aplica regula celor 2 secunde.' },
+          { k: 'C', t: '50 m indiferent de viteza', correct: false, exp: 'Nu exista o distanta fixa. Distanta se calculeaza in functie de viteza, conditii meteo si trafic. Pe ploaie, distanta se dubleaza.' },
+          { k: 'D', t: 'Aproape de vehiculul din fata, cat permite carosabilul', correct: false, exp: 'Foarte gresit! Aderenta scade dramatic la distanta mica, iar in caz de franare brusca nu ai spatiu sa opresti. Amenda 4-5 puncte penalizare.' }
+        ]
+      },
+      {
+        cat: 'Alcool si substante',
+        q: 'Care este limita legala de alcoolemie pentru un sofer cu vechime sub 1 an?',
+        opts: [
+          { k: 'A', t: '0,00 g/l alcool pur in sange (toleranta zero)', correct: true, exp: 'Corect! Pentru soferii cu experienta mai mica de 1 an, limita este 0,00 g/l - toleranta zero. Pentru ceilalti: 0,40 g/l in aer expirat (0,80 g/l in sange). Depasirea limitei = infractiune, permis suspendat si amenda.' },
+          { k: 'B', t: '0,40 g/l alcool pur in sange', correct: false, exp: 'E limita pentru soferii cu experienta, NU pentru cei sub 1 an vechime. Acestia au toleranta zero.' },
+          { k: 'C', t: '0,80 g/l alcool pur in sange', correct: false, exp: 'Nu. 0,80 g/l e limita pentru soferii cu experienta (corespunzator la 0,40 g/l in aer expirat). Pentru incepatori, limita e 0.' },
+          { k: 'D', t: 'Nu exista limita legala', correct: false, exp: 'Exista intotdeauna limita. Chiar si la cantitati mici, alcoolemia afecteaza reflexele si viteza de reactie.' }
+        ]
+      },
+      {
+        cat: 'Indicatoare si semne',
+        q: 'Ce semnifica indicatorul octogonal cu margine alba si fundal rosu?',
+        opts: [
+          { k: 'A', t: 'Drum cu prioritate', correct: false, exp: 'Drumul cu prioritate are alt indicator: un patrat galben cu margine alba si simbol rutier central. Octogonul rosu = STOP.' },
+          { k: 'B', t: 'STOP - oprire obligatorie', correct: true, exp: 'Corect! Octogonul rosu cu "STOP" inseamna oprire obligatorie la linia marcata sau inainte de intersectie. Opreste complet chiar daca drumul pare liber, apoi continua cu prudenta.' },
+          { k: 'C', t: 'Cedeaza trecerea', correct: false, exp: 'Cedeaza trecerea e un triunghi cu varful in jos, fundal alb si margine rosie. Nu octogon.' },
+          { k: 'D', t: 'Interzis accesul', correct: false, exp: 'Interzis accesul e un cerc rosu cu bara orizontala alba. Octogonul = STOP, oprire obligatorie.' }
+        ]
+      },
+      {
+        cat: 'Conducere pe timp de noapte',
+        q: 'Cand trebuie sa comuti pe faza scurta daca ai faza lunga aprinsa?',
+        opts: [
+          { k: 'A', t: 'La 100 m in fata de vehiculul care vine din sens opus si imediat la 100 m in spatele celui pe care l-ai depasit', correct: false, exp: 'Distanta e prea mica. Comutarea se face la 200 m in fata, NU 100 m. Eroare frecventa la examen.' },
+          { k: 'B', t: 'La 200 m in fata de vehiculul care vine din sens opus si imediat la 100 m in spatele celui pe care l-ai depasit', correct: true, exp: 'Corect! Faza lunga se comuta pe faza scurta la 200 m de vehiculul din fata si imediat la 100 m in spatele celui depasit. Daca nu comuti, orbesti pe celalalt sofer - risc de accident.' },
+          { k: 'C', t: 'Doar la intersectii', correct: false, exp: 'Nu doar la intersectii. Faza lunga trebuie comutata si pe drum drept, la intalnirea altui vehicul sau in localitate.' },
+          { k: 'D', t: 'Numai noaptea in localitate', correct: false, exp: 'Comutarea e obligatorie si in afara localitatii, noaptea, la intalnirea altui vehicul. Noaptea in localitate, faza scurta e obligatorie oricum.' }
+        ]
+      },
+      {
+        cat: 'Starea tehnica a vehiculului',
+        q: 'Ce faci daca martorul de la bord indica o temperatura anormala a motorului (in rosu)?',
+        opts: [
+          { k: 'A', t: 'Continui drumul si mergi la service ulterior', correct: false, exp: 'Foarte periculos! Supraincalzirea motorului poate duce la gripare - defectiune grava si costisitoare. Opreste imediat.' },
+          { k: 'B', t: 'Opresti imediat motorul si verifici nivelul lichidului de racire dupa ce se raceste', correct: true, exp: 'Corect! Opreste motorul, asteapta sa se raceasca (minim 15-20 minute), verifica nivelul lichidului de racire si cauza supraincalzirii (ventilator, furtun, termostat). Nu deschide capacul la cald - pericol de oprire.' },
+          { k: 'C', t: 'Adaugi apa rece direct in radiator pentru a reduce temperatura rapid', correct: false, exp: 'Foarte gresit! Adaugarea apei reci pe motorul fierbinte cauzeaza soc termic - poate crapa blocul motor sau chiulasa. Asteapta racirea.' },
+          { k: 'D', t: 'Deschizi geamul si pornesti ventilatia la maxim', correct: false, exp: 'Nu ajuta. Caldura vine de la motor, nu din habitaclu. Opreste motorul e singura solutie sigura.' }
+        ]
+      },
+      {
+        cat: 'Oprire si stationare',
+        q: 'In ce situatie ai voie sa opresti pe trecerea de pietoni?',
+        opts: [
+          { k: 'A', t: 'Niciodata', correct: true, exp: 'Corect! Oprirea si stationarea sunt INTERZISE pe trecerea de pietoni si in zona de 25 m inainte. Daca opresti pe trecere, blochezi pietonii si risti accident. Amenda 4-5 puncte penalizare.' },
+          { k: 'B', t: 'Doar pentru a lasa un pasager sa coboare', correct: false, exp: 'Chiar si pentru pasageri, oprirea pe trecere e interzisa. Opreste inainte sau dupa trecere, in loc sigur.' },
+          { k: 'C', t: 'Daca nu sunt pietoni pe trecere', correct: false, exp: 'Nu conteaza daca sunt sau nu pietoni. Oprirea pe trecere e intotdeauna interzisa, pentru ca pot aparea pietoni brusc.' },
+          { k: 'D', t: 'Noaptea, cand vizibilitatea e redusa', correct: false, exp: 'Nu exista exceptii. Oprirea pe trecerea de pietoni e mereu interzisa, indiferent de ora sau conditii.' }
+        ]
+      },
+      {
+        cat: 'Centura de siguranta',
+        q: 'Cine este responsabil daca un pasager din spate nu poarta centura de siguranta?',
+        opts: [
+          { k: 'A', t: 'Doar pasagerul', correct: false, exp: 'Pasagerul are obligatia sa poarte centura, dar soferul raspunde si el contraventional daca nu se asigura ca toti ocupantii o poarta.' },
+          { k: 'B', t: 'Soferul vehiculului', correct: true, exp: 'Corect! Conform Codului Rutier, soferul raspunde pentru neutilizarea centurii de catre toti pasagerii. La oprirea de catre politie, soferul primeste amenda si puncte penalizare.' },
+          { k: 'C', t: 'Proprietarul masinii', correct: false, exp: 'Proprietarul raspunde doar daca e si soferul. Altfel, responsabilitatea e a conducatorului auto aflat la volan in acel moment.' },
+          { k: 'D', t: 'Nimeni, daca pasagerul e adult', correct: false, exp: 'Fals! Obligatia centurii se aplica tuturor ocupantilor, indiferent de varsta, iar soferul raspunde pentru toti pasagerii din masina sa.' }
+        ]
+      },
+      {
+        cat: 'Prioritate si sens giratoriu',
+        q: 'Cine are prioritate intr-o intersectie cu sens giratoriu fara semafor?',
+        opts: [
+          { k: 'A', t: 'Cei care intra in sensul giratoriu', correct: false, exp: 'Gresit! Cei care intra trebuie sa cedeze trecerea celor care deja circula in cerc. E principala cauza de blocaj si accidente la sensuri giratorii.' },
+          { k: 'B', t: 'Cei care circula deja in sensul giratoriu', correct: true, exp: 'Corect! In intersectia cu sens giratoriu, prioritate au vehiculele care deja circula in cerc. Cei care intra trebuie sa astepte un loc liber. La iesire, foloseste semnalizarea din timp.' },
+          { k: 'C', t: 'Cel mai rapid vehicul', correct: false, exp: 'Nu. Viteza nu conteaza la stabilirea prioritatii - doar pozitia in intersectie. Cel din cerc are intotdeauna prioritate.' },
+          { k: 'D', t: 'Cel care vine din dreapta', correct: false, exp: 'Regula "prioritate din dreapta" se aplica la intersectii nedirijate obisnuite, NU la sensuri giratorii. La giratoriu, prioritatea e a celor din cerc.' }
+        ]
+      },
+      {
+        cat: 'Depasirea',
+        q: 'In ce situatie NU ai voie sa depasesti?',
+        opts: [
+          { k: 'A', t: 'Pe drum drept, cu vizibilitate buna', correct: false, exp: 'Depasirea e permisa in aceasta situatie, pe banda din stanga. E conditia ideala pentru o depasire sigura.' },
+          { k: 'B', t: 'La curba de drum, pe pod sau in tunel', correct: true, exp: 'Corect! Depasirea e INTERZISA la curba (fara vizibilitate), pe pod, in tunel, pe trecere de pietoni, in intersectie nedirijata si la cota maxima a drumului. Aceste zone au vizibilitate redusa si risc maxim de accident frontal.' },
+          { k: 'C', t: 'Pe autostrada, cu viteza legala', correct: false, exp: 'Depasirea e permisa pe autostrada, pe banda din stanga. E chiar incurajata pentru a nu incetini traficul.' },
+          { k: 'D', t: 'Ziua, in localitate', correct: false, exp: 'Depasirea in localitate e permisa (50 km/h), respectand regulile generale. Limitarea nu e legata de localitate, ci de conditiile de drum.' }
+        ]
+      },
+      {
+        cat: 'Permis si documente',
+        q: 'Ce documente trebuie sa ai obligatoriu la tine cand conduci o masina in Romania?',
+        opts: [
+          { k: 'A', t: 'Doar permisul de conducere', correct: false, exp: 'Permisul nu e suficient. Politia iti poate cere si certificatul de inmatriculare, asigurarea RCA si actul de identitate.' },
+          { k: 'B', t: 'Permisul, certificatul de inmatriculare, asigurarea RCA si actul de identitate', correct: true, exp: 'Corect! Acestea sunt cele 4 documente obligatorii. Fara ele, ris sanctiune contraventionala si retinerea permisului. ITP-ul trebuie sa fie valabil, dar nu se poarta la tine (e in baza de date politie).' },
+          { k: 'C', t: 'Doar asigurarea si permisul', correct: false, exp: 'Incomplete. Iti trebuie si certificatul de inmatriculare (talonul) si actul de identitate.' },
+          { k: 'D', t: 'Permis, talon si cartea tehnica a masinii', correct: false, exp: 'Cartea tehnica nu se mai poarta obligatoriu. E suficient talonul (certificatul de inmatriculare) si actul de identitate al soferului.' }
+        ]
+      },
+      {
+        cat: 'Viteza si conditii meteo',
+        q: 'Care este viteza maxima pe autostrada in Romania pentru categoria B, pe timp de ploaie torentiala?',
+        opts: [
+          { k: 'A', t: '130 km/h', correct: false, exp: '130 km/h e limita pe autostrada in conditii normale. Pe ploaie torentiala se reduce cu 20 km/h, conform regulii generale de adaptare la conditii.' },
+          { k: 'B', t: '110 km/h (reducere cu 20 km/h fata de limita de 130)', correct: false, exp: 'Reducerea cu 20 km/h se aplica doar daca limita maxima e 90 sau sub. La autostrada unde limita e 130, reducerea este doar de 20 km/h, deci 110 km/h. Dar atentie: pe vizibilitate sub 100 m, reducerea e mai mare.' },
+          { k: 'C', t: '80 km/h sau sub, in functie de vizibilitate', correct: true, exp: 'Corect! Pe ploaie torentiala sau vizibilitate sub 100 m, viteza se reduce proportional, nu mai mult de jumatatea limitei. In conditii extreme, 80 km/h sau mai putin e singura viteza sigura. Acvaplanarea incepe de la 80-90 km/h.' },
+          { k: 'D', t: 'Nu exista limita - conduci cat de repede poti in siguranta', correct: false, exp: 'Limita exista intotdeauna. Legea prevede reducere obligatorie pe ploaie, ceata, zapada. Nepastrarea vitezei legale = amenda si puncte penalizare.' }
+        ]
+      },
+      {
+        cat: 'Semafoare',
+        q: 'Ce faci la culoarea galbena continua a semaforului (nu intermitenta)?',
+        opts: [
+          { k: 'A', t: 'Continui cu aceeasi viteza, semaforul se va schimba in verde', correct: false, exp: 'Foarte gresit! Galben continuu inseamna "oprește dacă poți în siguranță". Continuarea cu viteza poate duce la trecerea pe rosu si accident.' },
+          { k: 'B', t: 'Opresti, exceptand cazul in care esti prea aproape si franarea ar fi periculoasa', correct: true, exp: 'Corect! Galben continuu = "oprește dacă poți în siguranță". Daca esti prea aproape si franarea brusca ar fi periculoasa, poti continua cu prudenta. E o exceptie, nu o regula.' },
+          { k: 'C', t: 'Accelerezi ca sa treci inainte de rosu', correct: false, exp: 'Foarte periculos si gresit! Accelerarea la galben creste riscul de accident si poate duce la trecerea pe rosu = amenda 4-5 puncte penalizare si posibil suspendarea permisului.' },
+          { k: 'D', t: 'Claxonesti si continui', correct: false, exp: 'Claxonatul nu schimba semaforul. Galbenul inseamna clar oprire (cu exceptia sigurantei). Claxonatul e util doar pentru a atrage atentia, nu pentru a forta trecerea.' }
+        ]
+      },
+      {
+        cat: 'Trecerea la nivel cu calea ferata',
+        q: 'Ce faci cand te apropii de o trecere la nivel cu calea ferata fara bariere, cu semnal luminos intermitent alb?',
+        opts: [
+          { k: 'A', t: 'Continui, lumina alba inseamna drum liber', correct: false, exp: 'Lumina alba intermitenta la trecerea la nivel inseamna "atentie, tren in apropiere!" - oprire obligatorie. Nu e liber ca la semaforul normal.' },
+          { k: 'B', t: 'Opresti si astepti trecerea trenului, chiar daca bariera e ridicata', correct: true, exp: 'Corect! Lumina alba intermitenta la trecerea la nivel anunta apropierea trenului. Opreste obligatoriu, verifica vizual si astepta trecerea completa. Daca nu opresti = amenda grava si puncte penalizare.' },
+          { k: 'C', t: 'Reduci viteza si continui daca nu vezi tren', correct: false, exp: 'Chiar daca nu vezi trenul, oprirea e obligatorie. Trenul poate aparea brusc. Vizibilitatea poate fi obstructionata de copaci, curbe sau alte vehicule.' },
+          { k: 'D', t: 'Astepti doar daca auzi sirena trenului', correct: false, exp: 'Trenurile moderne pot fi foarte silentioase, mai ales cele electrice. Nu te baza pe auz. Oprirea la lumina alba intermitenta e obligatorie intotdeauna.' }
+        ]
+      },
+      {
+        cat: 'Oprire de urgenta',
+        q: 'Ce faci daca ramai in pana pe autostrada?',
+        opts: [
+          { k: 'A', t: 'Opresti pe banda de urgenta, pui triunghiul reflectorizant la 30 m in spatele masinii si astepti ajutor', correct: false, exp: 'Triunghiul se pune la minim 30 m in spatele masinii, dar pe autostrada distanta recomandata e mai mare. Si trebuie sa iesi din masina si sa te indepartezi de trafic.' },
+          { k: 'B', t: 'Opresti pe banda de urgenta, iesi din masina, pui triunghiul reflectorizant si astepti ajutor in spatele balizelor', correct: true, exp: 'Corect! Banda de urginta e destinata urgentelor. Opreste, iesi din masina (de preferinta prin partea dreapta, nu pe carosabil), pui triunghiul reflectorizant (la 30 m in localitate, mai mult in afara), si astepti ajutor in spatele balizelor, NU in masina.' },
+          { k: 'C', t: 'Incerci sa repari masina pe banda de urgenta', correct: false, exp: 'Banda de urginta nu e loc sigur pentru reparatii. Poti fi acrosat de o masina in trecere. Cheama tractare sau ajutor specializat.' },
+          { k: 'D', t: 'Continui pe autostrada pana la iesire cu viteza redusa', correct: false, exp: 'Foarte periculos! Mersul pe autostrada cu masina avariata pune in pericol traficul si pe tine. Opreste imediat pe banda de urginta, semnalizeaza si cheama ajutor.' }
+        ]
+      },
+      {
+        cat: 'Parcare si mers inapoi',
+        q: 'Inainte de a porni mersul inapoi (marsarier), ce manevre de siguranta trebuie sa faci?',
+        opts: [
+          { k: 'A', t: 'Doar aprind lumina de marsarier si pornesc', correct: false, exp: 'Lumina de marsarier se aprinde automat, dar nu e suficient. Verificarea oglinzilor si a zonei e obligatorie inainte de a porni.' },
+          { k: 'B', t: 'Verific oglinzile laterale, oglinda centrala, privesc peste umar si apoi pornesc marsarierul', correct: true, exp: 'Corect! Procedura completa: oglinzi laterale (stanga si dreapta), oglinda centrala, privire directa peste umar (pentru unghiurile moarte), apoi marsarier. La examen, omiterea oricarei etape = penalizare imediata.' },
+          { k: 'C', t: 'Claxonez si pornesc marsarierul', correct: false, exp: 'Claxonatul nu inlocuieste verificarea vizuala. In plus, e inutil in marsarier - esti deja plecat.' },
+          { k: 'D', t: 'Deschid usa si ies sa verific', correct: false, exp: 'Nu e necesar sa iesi din masina. Procedura standard (oglinzi + privire peste umar) e suficienta. Iesirea e periculoasa in trafic.' }
+        ]
+      },
+      {
+        cat: 'Defectiuni tehnice',
+        q: 'Ce faci daca in timp ce conduci, martorul de ulei se aprinde (rosu)?',
+        opts: [
+          { k: 'A', t: 'Continui drumul pana la primul service', correct: false, exp: 'Foarte periculos! Lipsa uleiului poate duce la griparea motorului in cateva minute - defectiune grava, costisitoare. Opreste imediat.' },
+          { k: 'B', t: 'Opresti imediat motorul si verifici nivelul de ulei cand se raceste', correct: true, exp: 'Corect! Opreste motorul imediat, asteapta racirea, verifica nivelul de ulei cu joja. Daca e scazut, completeaza cu ulei potrivit sau cheama tractare. Continuarea poate distruge motorul.' },
+          { k: 'C', t: 'Adaugi apa in motor pentru a compensa', correct: false, exp: 'Apa in motor e foarte daunatoare - nu e lichid de racire. Opreste si verifica uleiul, nu turna nimic fara sa stii ce e.' },
+          { k: 'D', t: 'Conduci mai incet pentru a reduce consumul', correct: false, exp: 'Viteza nu afecteaza consumul de ulei. Daca martorul e aprins, oprirea e singura optiune sigura.' }
+        ]
+      },
+      {
+        cat: 'Manevre si abilitati',
+        q: 'La plecarea din rampa cu masina, ce faci pentru a evita alunecarea inapoi pe panta?',
+        opts: [
+          { k: 'A', t: 'Tin frana de mana strans, eliberez ambreiajul pana la punctul de cuplare, apoi eliberez frana de mana', correct: true, exp: 'Corect! Tehnica sigura: frana de mana actionata, ambreiajul urcat la punctul de cuplare (masina "tresare"), acceleratie moderata, eliberare treptata a franei de mana. Fara alunecare. E tehnica standard pe planul inclinat de la examen.' },
+          { k: 'B', t: 'Plecat brusc cu acceleratie maxima', correct: false, exp: 'Brutal si ineficient. Poate duce la patinarea rotilor, derapaj sau oprirea motorului. Plus consum excesiv.' },
+          { k: 'C', t: 'Plecat fara sa eliberez deloc frana de mana', correct: false, exp: 'Nu poti pleca cu frana de mana actionata. Motorul se va opri sau rotile se vor bloca. Trebuie eliberata la momentul potrivit.' },
+          { k: 'D', t: 'Cere ajutor cuiva sa te impinga', correct: false, exp: 'Nu e necesar. Tehnica cu frana de mana e suficienta si e cea testata la examen. Ajutorul extern e permis doar la defectiuni.' }
+        ]
+      },
+      {
+        cat: 'Prim ajutor',
+        q: 'Ce faci daca un accidentat are hemoragie externa puternica la un brat?',
+        opts: [
+          { k: 'A', t: 'Astepti ambulanta fara sa faci nimic', correct: false, exp: 'In hemoragia externa puternica, victima poate pierde mult sange in cateva minute. Interventia ta poate salva viata. Nu astepta pasiv.' },
+          { k: 'B', t: 'Aplici un garou deasupra ranii (catre trunchi) si notezi ora aplicarii', correct: true, exp: 'Corect! Garoul se aplica DOAR in hemoragii care nu pot fi oprite prin presiune directa, deasupra ranii (intre rana si inima). Noteaza ORA EXACTA - garoul nu poate sta mai mult de 1-1.5 ore fara risc de necroza. Anunta medicul la predare.' },
+          { k: 'C', t: 'Speli rana cu apa rece din fata', correct: false, exp: 'Nu spala rana cu hemoragie activa - apa poate indeparta cheagurile si agrava sangerarea. Primul pas e oprirea hemoragiei, apoi curatare.' },
+          { k: 'D', t: 'Pui gheata direct pe rana', correct: false, exp: 'Gheata poate rani tesutul. Opreste hemoragia cu presiune directa sau garou, apoi gheata indirecta (in prosop) pentru a reduce umflarea.' }
+        ]
+      },
+      {
+        cat: 'Manevre avansate',
+        q: 'Cum procedezi la intoarcerea intr-o intersectie ingusta cu 3 intoarceri?',
+        opts: [
+          { k: 'A', t: 'Faci toate cele 3 manevre fara sa te opresti', correct: false, exp: 'Nu e posibil si nici recomandat. Fiecare manevra necesita coordonare cu celelalte vehicule si cu marcajele. Procedeaza cu rabdare, folosind marsarierul cand e necesar.' },
+          { k: 'B', t: 'Folosesti marsarierul pentru a te repozitiona intre manevre, cedezi prioritate si semnalizezi intentia', correct: true, exp: 'Corect! Intoarcerea in intersectii inguste necesita marsarier pentru a te pozitiona. Semnalizeaza din timp, verifica oglinzile, cedeaza prioritate celorlalti participanti la trafic. Procedeaza cu rabdare, nu te grabi.' },
+          { k: 'C', t: 'Intri in intersectie cu viteza maxima ca sa invarti rapid', correct: false, exp: 'Foarte gresit si periculos! Viteza mare intr-o intersectie creste riscul de accident si pierzi controlul. Intoarcerile se fac cu viteza redusa.' },
+          { k: 'D', t: 'Ocolesti intersectia si mergi la urmatoarea pentru intoarcere', correct: false, exp: 'Desi e o solutie uneori, intrebarea se refera la intoarcerea in intersectie. La examen, trebuie sa demonstrezi ca stii sa faci manevra. Doar daca nu e permisa intoarcerea ocolesti.' }
+        ]
+      },
+      {
+        cat: 'Comportament in trafic',
+        q: 'Ce faci daca un politist iti face semn sa opresti cu mana ridicata?',
+        opts: [
+          { k: 'A', t: 'Continui drumul si intrebi politistul unde e problema', correct: false, exp: 'Oprirea la semnalul politistului e OBLIGATORIE. Nerespectarea e infractiune, cu retinerea permisului si amenda grava.' },
+          { k: 'B', t: 'Opresti cat mai repede in dreapta, semnalizezi, opresti motorul si astepti instructiuni', correct: true, exp: 'Corect! Oprire linistita in dreapta (sau unde indica politistul), semnalizare, motor oprit, geam coborat pentru comunicare, mainile la vedere pe volan, documente pregatite. Atitudine politicoasa, fara agresivitate.' },
+          { k: 'C', t: 'Accelerezi ca sa scapi', correct: false, exp: 'Tentativa de fuga e infractiune grava. Opreste imediat la semnalul politistului.' },
+          { k: 'D', t: 'Opresti doar daca ai incalcat legea', correct: false, exp: 'Oprirea e obligatorie ORICAND politistul solicita, chiar daca nu ai incalcat nimic. E dreptul lui legitim de control.' }
+        ]
+      },
+      {
+        cat: 'Semafoare speciale',
+        q: 'Ce inseamna o sageata verde la semafor (pe langa culoarea rosie)?',
+        opts: [
+          { k: 'A', t: 'Ai prioritate in directia sagetii', correct: true, exp: 'Corect! Sageata verde inseamna "mergi in directia indicata, prioritate". Poti trece chiar daca culoarea principala e rosie. Dar trebuie sa cedezi trecere pietonilor si celorlalte vehicule care au deja drept de trecere.' },
+          { k: 'B', t: 'Astepti culoarea verde normala', correct: false, exp: 'Astepti daca vrei sa mergi in alta directie. Daca sageata indica directia ta, poti trece. Altfel astepti.' },
+          { k: 'C', t: 'Semafor defect', correct: false, exp: 'Semaforul functioneaza corect. Sageata verde este un semnal special pentru directii permise (ex: viraj la dreapta sau stanga).' },
+          { k: 'D', t: 'Inseamna doar pentru biciclisti', correct: false, exp: 'Sageata verde la semafor e pentru toate vehiculele, nu doar biciclisti. Exista si semafoare dedicate bicicletelor, dar sageata clasica e universala.' }
+        ]
+      },
+      {
+        cat: 'Distanta intre vehicule',
+        q: 'Ce inseamna "regula celor 2 secunde" aplicata in afara localitatii?',
+        opts: [
+          { k: 'A', t: 'Trecerea unui reper fix la 2 secunde dupa vehiculul din fata', correct: true, exp: 'Corect! Regula celor 2 secunde: alege un reper fix (stalp, copac), cand vehiculul din fata trece de el, numara "21, 22". Daca ajungi la reper inainte de "22", redu distanta. Pe ploaie sau noapte, dubleaza la 4 secunde.' },
+          { k: 'B', t: 'Pastrarea a 2 m intre masini', correct: false, exp: '2 m e prea putin. La 90 km/h, in 2 m nu ai timp de reactie. Regula e de TIMP (secunde), nu distanta fixa.' },
+          { k: 'C', t: '2 secunde de la pornire pana la 50 km/h', correct: false, exp: 'Nu are legatura cu distanta in trafic. Regula celor 2 secunde e metoda de masurare a distantei sigure intre vehicule.' },
+          { k: 'D', t: '2 secunde intre schimbarea vitezelor', correct: false, exp: 'Nu. Schimbarea vitezelor se face instant, in functie de nevoie. Regula celor 2 secunde e strict despre distanta de siguranta.' }
+        ]
+      },
+      {
+        cat: 'Conducere preventiva',
+        q: 'Ce este "conducerea preventiva"?',
+        opts: [
+          { k: 'A', t: 'Conducerea cu viteza maxima permisa', correct: false, exp: 'Viteza maxima nu e scopul conducerii preventive. Preventiva inseamna sa anticipezi situatiile periculoase inainte sa apara.' },
+          { k: 'B', t: 'Anticiparea potentialelor pericole si adaptarea conduitei pentru a le evita', correct: true, exp: 'Corect! Conducerea preventiva inseamna sa observi si sa anticipezi pericolele (pietoni, copii, masini care ies din parcari, conditii meteo) si sa reduci viteza sau sa te opresti inainte ca pericolul sa apara. E o atitudine de siguranta activa.' },
+          { k: 'C', t: 'Oprirea preventiva la fiecare intersectie', correct: false, exp: 'Conducerea preventiva nu inseamna oprire excesiva. E vorba de constientizarea mediului si adaptare, nu de actiuni stricte la fiecare intersectie.' },
+          { k: 'D', t: 'Conducerea doar in conditii meteo bune', correct: false, exp: 'Conducerea preventiva e valabila in ORICE conditii - mai ales pe ploaie, ceata, noapte. Nu inseamna sa eviti conditiile grele.' }
+        ]
+      },
+      {
+        cat: 'Semnale politist',
+        q: 'Ce inseamna bratul politistului intins orizontal, perpendicular la directia ta de mers?',
+        opts: [
+          { k: 'A', t: 'Poti continua inainte, politistul e pe o banda laterala', correct: false, exp: 'Bratul intins orizontal inseamna OPRIRE OBLIGATORIE pentru toate vehiculele care vin din fata politistului. E echivalent cu semaforul rosu.' },
+          { k: 'B', t: 'Oprire obligatorie pentru vehiculele care vin din fata politistului', correct: true, exp: 'Corect! Bratul intins orizontal = oprire pentru cei care vin din fata. Bratul la 45 grade inainte = oprire pentru cei din spate. Politistul poate face si alte semne (rotire, indicare directie). Nerespectarea = amenda si puncte penalizare.' },
+          { k: 'C', t: 'Redu viteza si fii atent', correct: false, exp: 'Reducerea vitezei nu e suficienta la semnalul politistului. Oprirea e obligatorie la brat intins orizontal.' },
+          { k: 'D', t: 'E un salut politienesc, poti continua', correct: false, exp: 'Nu e salut. E un semnal oficial de oprire. Ignorarea e contraventie sau infractiune.' }
+        ]
+      },
+      {
+        cat: 'Mediu de invatare - bonus',
+        q: 'De ce nu ai voie sa folosesti telefonul mobil in timp ce conduci (fara hands-free)?',
+        opts: [
+          { k: 'A', t: 'Doar pentru ca legea interzice, dar in practica nu e periculos', correct: false, exp: 'Fals! Studiile arata ca telefonul la volan creste riscul de accident de 4 ori, similar cu alcoolemia. Legea exista pentru ca e DOVEDIT periculos.' },
+          { k: 'B', t: 'Pentru ca iti distrage atentia si iti incetineste timpul de reactie cu pana la 50%', correct: true, exp: 'Corect! Folosirea telefonului la volan (fara hands-free) iti distrage atentia vizuala, manuala si cognitiva. Timpul de reactie creste cu 35-50%. E echivalent cu 0,5 g/l alcoolemie. Amenda 4-5 puncte penalizare + suspendare permis la repetare.' },
+          { k: 'C', t: 'Telefonul interfereaza cu sistemul electric al masinii', correct: false, exp: 'Nu e o problema tehnica. E vorba de comportament si atentie. Hands-free-ul reduce partial riscul, dar nu e complet sigur.' },
+          { k: 'D', t: 'Pentru ca poate exploda bateria', correct: false, exp: 'Telefoanele moderne nu explodeaza la utilizare normala. Risc e de neatentie, nu tehnic.' }
+        ]
+      },
+      {
+        cat: 'Ecologica',
+        q: 'Care este cel mai eficient mod de a reduce consumul de combustibil in oras?',
+        opts: [
+          { k: 'A', t: 'Condu cu viteza constanta si anticipezi semafoarele', correct: true, exp: 'Corect! Conducerea fluida, cu anticipare (fara franari si accelerari bruste), reduce consumul cu 15-25%. Opreste motorul la stationari lungi, schimba vitezele la 2000-2500 rpm, foloseste frana de motor la coborari.' },
+          { k: 'B', t: 'Condu cu viteza maxima pentru a termina drumul repede', correct: false, exp: 'Viteza maxima creste consumul dramatic. Peste 100 km/h, fiecare 10 km/h in plus creste consumul cu 5-10%.' },
+          { k: 'C', t: 'Tine geamurile deschise pentru aerisire', correct: false, exp: 'La viteze mari, geamurile deschise cresc rezistenta aerodinamica si consumul. Foloseste ventilatia masinii, nu geamurile deschise la viteza.' },
+          { k: 'D', t: 'Porneste motorul doar cand trebuie sa pleci', correct: false, exp: 'Demarajele repetate cresc consumul (pornirile reci sunt consumatoare). E mai eficient sa tii motorul pornit la semafor decat sa opresti si sa repornesti des.' }
+        ]
+      }
     ];
 
     const quizState = { i: 0, score: 0, answered: false };
@@ -1813,10 +2129,11 @@
     const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
 
     function loadQuestion() {
-      const q = QUIZ_QUESTIONS[quizState.i];
-      $('quiz-pill').textContent = `Intrebarea ${quizState.i + 1} / ${QUIZ_QUESTIONS.length}`;
+      const deck = quizState.deck || QUIZ_QUESTIONS;
+      const q = deck[quizState.i];
+      $('quiz-pill').textContent = `Intrebarea ${quizState.i + 1} / ${deck.length}`;
       $('quiz-cat').textContent = q.cat;
-      $('quiz-bar').style.width = `${(quizState.i / QUIZ_QUESTIONS.length) * 100}%`;
+      $('quiz-bar').style.width = `${(quizState.i / deck.length) * 100}%`;
       $('quiz-q').textContent = q.q;
       $('quiz-opts').innerHTML = '';
       $('quiz-explain').className = 'quiz-explain';
@@ -1856,7 +2173,8 @@
     }
 
     function nextQuestion() {
-      if (quizState.i < QUIZ_QUESTIONS.length - 1) {
+      const deck = quizState.deck || QUIZ_QUESTIONS;
+      if (quizState.i < deck.length - 1) {
         quizState.i++;
         loadQuestion();
       } else {
@@ -1907,8 +2225,146 @@
     });
     $('quiz-restart').addEventListener('click', restartQuiz);
 
+    // ----- Moduri Quiz (Rapid / Categorie / Examen) -----
+    const CATS = [...new Set(QUIZ_QUESTIONS.map(q => q.cat))].sort();
+    let quizMode = 'rapid'; // 'rapid' | 'categoria' | 'examen'
+    let quizTimer = null;
+
+    function shuffle(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
+
+    function buildDeck() {
+      if (quizMode === 'rapid') {
+        // 5 intrebari random din toate
+        return shuffle(QUIZ_QUESTIONS).slice(0, 5);
+      } else if (quizMode === 'categoria') {
+        const cat = quizState.activeCat || CATS[0];
+        const inCat = QUIZ_QUESTIONS.filter(q => q.cat === cat);
+        return shuffle(inCat).slice(0, Math.min(10, inCat.length));
+      } else if (quizMode === 'examen') {
+        // 26 intrebari random, toate categoriile
+        return shuffle(QUIZ_QUESTIONS).slice(0, 26);
+      }
+      return [];
+    }
+
+    function startTimer(seconds, onEnd) {
+      clearInterval(quizTimer);
+      const endAt = Date.now() + seconds * 1000;
+      const tick = () => {
+        const left = Math.max(0, Math.round((endAt - Date.now()) / 1000));
+        const mm = Math.floor(left / 60).toString().padStart(2, '0');
+        const ss = (left % 60).toString().padStart(2, '0');
+        const tEl = $('quiz-timer');
+        if (tEl) {
+          tEl.textContent = `${mm}:${ss}`;
+          tEl.className = left < 60 ? 'quiz-timer warn' : 'quiz-timer';
+        }
+        if (left <= 0) {
+          clearInterval(quizTimer);
+          onEnd();
+        }
+      };
+      tick();
+      quizTimer = setInterval(tick, 1000);
+    }
+
+    function startQuiz(mode, cat) {
+      clearInterval(quizTimer);
+      quizMode = mode;
+      quizState.activeCat = cat;
+      quizState.deck = buildDeck();
+      quizState.i = 0;
+      quizState.score = 0;
+      quizState.answers = []; // pentru review
+      $('quiz-body').style.display = 'block';
+      $('quiz-result').classList.remove('show');
+      $('quiz-mode-label').textContent = mode === 'rapid' ? 'Mod rapid · 5 intrebari' : mode === 'categoria' ? 'Mod categorie · ' + cat : 'Simulare examen · 26 intrebari · 30 min';
+
+      if (mode === 'examen') {
+        $('quiz-timer-wrap').style.display = 'flex';
+        startTimer(30 * 60, () => {
+          // Timp expirat - finalizeaza automat
+          quizState.timedOut = true;
+          showResult();
+        });
+      } else {
+        $('quiz-timer-wrap').style.display = 'none';
+      }
+
+      loadQuestion();
+    }
+
+    function setMode(mode, cat) {
+      // Highlight active button
+      document.querySelectorAll('.quiz-mode-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.quiz-mode-btn[data-mode="${mode}${cat ? ':' + cat : ''}"]`);
+      if (btn) btn.classList.add('active');
+      startQuiz(mode, cat);
+    }
+
+    // Init: bind mode buttons
+    document.querySelectorAll('.quiz-mode-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const mode = b.dataset.mode;
+        if (mode.startsWith('categoria:')) {
+          setMode('categoria', mode.split(':')[1]);
+        } else {
+          setMode(mode);
+        }
+      });
+    });
+
+    // Replace showResult to be examen-aware
+    const _origShowResult = showResult;
+    showResult = function() {
+      $('quiz-body').style.display = 'none';
+      $('quiz-result').classList.add('show');
+      $('quiz-bar').style.width = '100%';
+      clearInterval(quizTimer);
+      const total = quizState.deck ? quizState.deck.length : QUIZ_QUESTIONS.length;
+      const score = quizState.score;
+      const pct = Math.round((score / total) * 100);
+      $('quiz-score').textContent = `${score} / ${total}`;
+      let msg = '';
+      let verdict = '';
+      if (quizMode === 'examen') {
+        // DRPCIV: max 4 greseli admise din 26
+        const greseli = total - score;
+        const admis = greseli <= 4;
+        verdict = admis ? '✓ ADMIS' : '✗ RESPINS';
+        msg = admis
+          ? `Ai ${greseli} greseli. La DRPCIV, maxim 4 greseli sunt admise. Felicitari!`
+          : `Ai ${greseli} greseli. La DRPCIV, mai mult de 4 greseli inseamna RESPINS. Mai exerseaza pe capitolele cu erori.`;
+        $('quiz-score').innerHTML = `${verdict}<br><span style="font-size:36px;display:block;margin-top:8px">${score} / ${total}</span>`;
+      } else {
+        if (pct === 100) msg = 'Excelent! Esti pregatit pentru proba teoretica.';
+        else if (pct >= 80) msg = 'Foarte bine! Recapituleaza capitolele cu greseli.';
+        else if (pct >= 60) msg = 'Bine. Mai exerseaza cu flashcard-urile de mai jos.';
+        else msg = 'Ai nevoie de mai mult timp de studiu. Incepe cu flashcard-urile.';
+      }
+      $('quiz-msg').textContent = msg;
+    };
+
+    // Patch restartQuiz to use current mode
+    restartQuiz = function() {
+      startQuiz(quizMode, quizState.activeCat);
+    };
+
     // Init
-    if (document.getElementById('quiz')) loadQuestion();
+    if (document.getElementById('quiz')) {
+      // Populate category select dynamically
+      const sel = $('quiz-cat-select');
+      if (sel) {
+        CATS.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c + ' (' + QUIZ_QUESTIONS.filter(q => q.cat === c).length + ')';
+          sel.appendChild(opt);
+        });
+        sel.addEventListener('change', () => setMode('categoria', sel.value));
+      }
+      setMode('rapid');
+    }
   </script>
 </body>
 </html>

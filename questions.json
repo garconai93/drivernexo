@@ -1,0 +1,311 @@
+[
+  {
+    "id": 2,
+    "title": "Ce va indica faptul ca bateria de acumulatori este descarcata?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "la aprinderea farurilor, intensitatea luminoasa a acestora scade progresiv"
+      },
+      {
+        "letter": "B",
+        "text": "actionand claxonul, acesta emite un sunet slab, intrerupt"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Când bateria de acumulatori este descărcată, aceasta afectează funcționarea corectă a sistemelor electrice ale vehiculului. Un semn clar este că, atunci când acționați claxonul, sunetul produs este slab și poate fi întrerupt, ceea ce indică o lipsă de energie suficientă pentru a susține un sunet continuu și puternic. Totodată, alte componente electrice, cum ar fi farurile, pot afișa o intensitate luminoasă mult redusă, acest lucru fiind un alt indiciu al unei baterii care nu are suficientă încărcare pentru a funcționa la parametri normali. Aceste simptome sugerează că bateria trebui să fie încărcată sau înlocuită pentru a asigura funcționarea optimă a vehiculului.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 10,
+    "title": "Care dintre variantele de mai jos reprezinta calitati ale unui ulei de motor?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "Punctul de congelare"
+      },
+      {
+        "letter": "C",
+        "text": "Vascozitatea"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Culoarea uleiului nu indică neapărat calitatea acestuia, deoarece nu afectează performanța motorului. Punctul de congelare reprezintă temperatura la care uleiul își pierde fluiditatea și devine aproape solid; aceasta trebuie să fie cât mai scăzută pentru a asigura buna funcționare a motorului în condiții de temperaturi scăzute. Vâscozitatea se referă la capacitatea uleiului de a curge: este esențial ca uleiul să aibă o vâscozitate adecvată pentru a oferi o protecție corectă motorului, să fie suficient de vâscos în timpul verii și suficient de fluid în timpul iernii, astfel încât să asigure lubrifierea corespunzătoare în diferite condiții de temperatură.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 29,
+    "title": "Ce rol are cutia de viteze?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "asigura transmiterea puterii la roti"
+      },
+      {
+        "letter": "B",
+        "text": "permite mersul inapoi fara a inversa sensul de rotatie al motorului"
+      },
+      {
+        "letter": "C",
+        "text": "permite stationarea cu motorul in functiune"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Cutia de viteze este un mecanism complex format din angrenaje care permite modificarea cuplului și a vitezei motorului pentru a optimiza performanța vehiculului. Aceasta asigură adaptarea forței de tracțiune la necesitățile de deplasare, fie că se dorește un demaraj rapid, o viteză constantă sau o economie de combustibil. În plus, permite și staționarea vehiculului cu motorul pornit, facilitând astfel schimbările de la o treaptă la alta și contribuind la o conducere mai ușoară și mai controlată. Cutia de viteze joacă un rol esențial în distribuirea eficientă a puterii motorului către roțile vehiculului, ceea ce îl face indispensabil pentru funcționarea corectă a oricărui automobil.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 33,
+    "title": "Pentru întreţinerea sistemului de ungere, trebuie să efectuaţi:",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "inlocuirea uleiului dupa expirarea termenului de utilizare"
+      },
+      {
+        "letter": "C",
+        "text": "verificarea si completarea nivelului uleiului din baie"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Pentru a menține eficiența sistemului de ungere al autovehiculului, este esențial să verificați periodic nivelul uleiului din baia de ulei și să completați dacă este necesar. De asemenea, este important să înlocuiți uleiul la intervale regulate, conform recomandărilor producătorului, care pot varia în funcție de tipul de ulei și modelul vehiculului. Aceste măsuri contribuie la prevenirea uzurii excesive a motorului și la asigurarea funcționării optime a acestuia.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 36,
+    "title": "Care dintre urmatoarele cauze determina cresterea excesiva a regimului termic de functionare a motorului?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "defectarea termostatului"
+      },
+      {
+        "letter": "B",
+        "text": "ruperea curelei de antrenare a pompei de apa"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Când termostatul rămâne blocat în poziția închis, motorul se poate supraîncălzi deoarece circulația lichidului de răcire către radiator este întreruptă. Acest lucru împiedică eliminarea eficientă a căldurii generate de motor. De asemenea, dacă cureaua care antrenează pompa de apă se rupe, pompa nu va mai putea funcționa, ceea ce înseamnă că lichidul de răcire nu va putea fi circulat prin sistem. Fără circulația lichidului de răcire, căldura nu va putea fi disipată corespunzător, ceea ce va conduce la o creștere excesivă a temperaturii de funcționare a motorului. Astfel, ambele situații pot cauza o supraîncălzire periculoasă a motorului.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 39,
+    "title": "Ce reguli trebuie aplicate la folosirea pe termen lung a solutiilor antigel?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "dupa trei ani solutia antigel va fi complet inlocuita, chiar daca densitatea acesteia corespunde cerintelor"
+      },
+      {
+        "letter": "C",
+        "text": "se va urmari intotdeauna nivelul optim al lichidului din vasul de expansiune"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Antigelul este esențial pentru asigurarea funcționării corespunzătoare a sistemului de răcire al unui autovehicul. În timp, proprietățile antigelului pot să se degradeze, iar pentru automobilele mai moderne, acesta ar trebui înlocuit ceva mai rar decât la cele mai vechi. Totuși, este recomandat să fie verificat și, dacă este necesar, schimbat aproximativ o dată la trei ani pentru a menține eficiența sistemului de răcire. Verificarea regulată a nivelului acestui lichid în vasul de expansiune este crucială pentru a preveni supraîncălzirea motorului și pentru a asigura protecția optimă împotriva coroziunii. Culoarea lichidului nu este un indicator suficient pentru starea sa, deoarece aditivi vitali pot fi consumați fără a schimba semnificativ culoarea acestuia. De aceea, menținerea nivelului optim și substituirea periodică a antigelului, conform recomandărilor producătorului, sunt aspecte esențiale pentru întreținerea corespunzătoare a vehiculului.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 41,
+    "title": "Incalzirea excesiva a pneurilor se poate datora:",
+    "variants": [
+      {
+        "letter": "B",
+        "text": "supraincarcarii autovehiculului"
+      },
+      {
+        "letter": "C",
+        "text": "presiunii insuficiente"
+      }
+    ],
+    "correctLetter": "B",
+    "explanation": "În cazul în care pneurile au o presiune mai mică decât cea recomandată, rezistența la rulare crește, ceea ce duce la o generare excesivă de căldură. Această creștere a frecării între pneu și drum poate provoca o încălzire anormală a pneurilor. De asemenea, dacă vehiculul este suprasolicitat cu greutate peste limita indicată, aceasta poate exercita o presiune suplimentară asupra pneurilor, de asemenea, contribuind la creșterea temperaturii acestora. Presiunea corectă în pneuri și evitarea supraîncărcării vehiculului sunt esențiale pentru a preveni supraîncălzirea pneurilor.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 46,
+    "title": "Ce poate determina neeliberarea completa a franei de stationare?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "un consum suplimentar de combustibil"
+      },
+      {
+        "letter": "C",
+        "text": "incalzirea puternica a butucilor rotilor din spate"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Când frâna de staționare nu este eliberată complet, autovehiculul necesită un efort mai mare pentru a se deplasa, ceea ce duce la un consum mai mare de combustibil. Această situație duce la frecarea continuă între saboți sau tamburi și butucii roților din spate, care generează o încălzire semnificativă a acestora. Efectul frecării constante se poate manifesta prin apariția unor zgomote, însă acestea provin de la roți, nu de la mecanismul frânei de mână.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 50,
+    "title": "Comportamentul ecologic in conducerea unui autovehiculul presupune:",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "evitarea zonelor cu circulatie densa, cu lucrari pe carosabil sau cu teren accidentat"
+      },
+      {
+        "letter": "B",
+        "text": "planificarea traseului pentru a economisi timp si combustibil"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Pentru a adopta un comportament ecologic la volan, este esențial să ne informăm din timp despre eventualele obstacole de pe drum, cum ar fi blocajele sau lucrările rutiere. Planificarea traseului devine crucială, fie că utilizăm o hartă tradițională sau un sistem GPS, selectând ruta optimă în funcție de criterii precum distanța, dificultatea traseului sau gradul de aglomerație. Prin proiectarea din timp a rutei, nu doar că putem economisi timp și combustibil, dar putem și evita zonele intens circulate care pot duce la creșterea consumului de carburant. Acești pași sunt fundamentali pentru a sprijini un stil de condus ecologic și eficient, reducând impactul asupra mediului înconjurător.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 53,
+    "title": "In sensul conducerii ecologice a unui autovehicul, se recomanda:",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "sa nu aveti montat in permanenta pe autovehicul portbagajul suplimentar"
+      },
+      {
+        "letter": "B",
+        "text": "sa evitati transportul obiectelor inutile in portbagaj sau in habitaclu"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Transportul obiectelor inutile în portbagaj sau în interiorul vehiculului poate duce la un consum mai mare de combustibil. Greutatea suplimentară necesită mai multă energie pentru a propulsa vehiculul, ceea ce va crește consumul de combustibil. De asemenea, obiectele transportate pe acoperiș, cum ar fi portbagajele exterioare, pot crește consumul din cauza rezistenței aerodinamice sporite, ceea ce poate duce la o creștere a consumului de combustibil cu aproximativ 1 litru la fiecare 100 km parcurși. Aceste măsuri simple de reducere a greutății și a rezistenței aerodinamice sunt recomandări esențiale pentru o condusă ecologică a vehiculului.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 54,
+    "title": "Pentru a conduce ecologic un autovehiculul, este necesar:",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "sa schimbati intre ele pneurile, la aproximativ 10 000 km"
+      },
+      {
+        "letter": "C",
+        "text": "sa verificati o data pe luna, la rece, presiunea din pneuri"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Presiunea corectă a pneurilor joacă un rol crucial în eficiența consumului de combustibil al vehiculului, contribuind astfel la un stil de condus ecologic. Este recomandat să verificați presiunea pneurilor aproximativ o dată pe lună, atunci când acestea sunt reci. Cea mai bună perioadă pentru această verificare este dimineața, înainte de a porni la drum sau după ce vehiculul a stat parcat pentru o perioadă mai lungă. Înlocuirea pneurilor între ele, adică mutarea celor din spate în față și viceversa, ar trebui să se facă la intervale de aproximativ 10.000-20.000 de kilometri pentru a asigura o uzură uniformă. Înlocuirea completă a pneurilor după fiecare 1000 km nu este necesară și nu este indicată. Urmând aceste recomandări simple privind întreținerea pneurilor, puteți reduce consumul de combustibil și să contribuiți la protejarea mediului.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 56,
+    "title": "Cand se recomanda sa opriti motorul pentru a reduce consumul de combustibil?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "la culoarea rosie a unui semafor care, de regula, dureaza foarte mult"
+      },
+      {
+        "letter": "B",
+        "text": "in cazul unei opriri lungi la o trecere la nivel cu calea ferata"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Oprirea motorului este recomandată în situațiile în care vehiculul va staționa pentru o perioadă mai lungă de timp, cum ar fi la o trecere la nivel cu calea ferată. În aceste cazuri, așteptarea poate dura mai multe minute, ceea ce face eficientă oprirea motorului pentru a economisi combustibil. În cazul semafoarelor, deși oprirea poate fi de aproximativ 2 minute, nu este întotdeauna eficient să opriți motorul. Acțiunea de oprire și repornire a motorului poate, de asemenea, contribui la economisirea combustibilului, dar este mai utilă atunci când staționarea durează mai mult timp, așa cum se întâmplă adesea la intersecțiile cu treceri la nivel cu calea ferată. Această practică este utilizată pentru a economisi combustibil și pentru a reduce emisiile, dar trebuie aplicată judicios pentru a nu perturba traficul sau a crea situații periculoase.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 57,
+    "title": "In care dintre situatii consumul de carburant al unui motor creste?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "atunci cand motorul functioneaza cu intreruperi"
+      },
+      {
+        "letter": "B",
+        "text": "atunci cand motorul nu atinge temperatura de functionare"
+      },
+      {
+        "letter": "C",
+        "text": "atunci cand fumul de la esapament este de culoare neagra"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Când motorul funcționează cu întreruperi, acest lucru poate fi cauzat de o alimentare inadecvată cu combustibil sau de o problemă a sistemului de aprindere. În aceste condiții, motorul nu operează eficient, ceea ce duce la un consum mai mare de combustibil. De asemenea, dacă motorul funcționează la o temperatură scăzută, arderea combustibilului nu este completă, rezultând un consum crescut de carburant. Când se arde prea mult combustibil care nu are suficient timp să ardă corect, sunt generate emisii de fum negru la eșapament, indicând un amestec de aer-combustibil neadecvat și un consum ineficient.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 62,
+    "title": "Cum este indicat sa demarati astfel incat sa reduceti consumul de carburant?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "folositi ultima treapta de viteza atunci cand este posibil, chiar si cand circulati prin localitati"
+      },
+      {
+        "letter": "B",
+        "text": "schimbati cat mai repede vitezele pana ajungeti la treapta de viteza optima"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Pentru a optimiza consumul de carburant, este important să urcăm cât mai repede în treptele superioare de viteză, inclusiv atunci când circulăm prin localități, dacă situația ne permite acest lucru. La pornirea de pe loc sau după ce am încetinit considerabil, este esențial să schimbăm rapid treptele de viteză, astfel încât să ajungem cât mai repede posibil la treapta a 4-a sau a 5-a, și când este posibil, chiar și la treapta a 6-a. Utilizarea treptelor superioare permite motorului să funcționeze mai eficient, reducând astfel consumul de carburant.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 73,
+    "title": "Cum se poate realiza transportul victimelor la spital?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "cu o ambulanta special dotata in acest sens"
+      },
+      {
+        "letter": "B",
+        "text": "cu vehiculul care a provocat accidentul, daca starea victimei permite acest lucru"
+      },
+      {
+        "letter": "C",
+        "text": "cu o ambulanta insotita de un medic"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Cel mai sigur mod de a transporta victimele unui accident la spital este cu ajutorul unei ambulanțe însoțite de un medic, pentru a asigura asistența medicală de urgență adecvată. În situația în care ambulanța nu este disponibilă, se poate folosi și autoturismul care a provocat accidentul, cu condiția ca starea de sănătate a victimei să permită acest lucru. Este foarte important să se acorde o atenție deosebită în cazurile de fracturi la coloana vertebrală sau la nivelul gâtului, deoarece mișcarea necorespunzătoare a victimei poate duce la paralizie completă sau chiar la deces.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 115,
+    "title": "Care dintre urmatoarele actiuni se pedepsesc penal?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "instalarea de mijloace de semnalizare rutiera sau modificarea pozitiei acestora fara autorizatie legala"
+      },
+      {
+        "letter": "B",
+        "text": "blocarea cu intentie a drumului public, daca se pune in pericol siguranta circulatiei"
+      },
+      {
+        "letter": "C",
+        "text": "organizarea sau participarea, in calitate de conducator auto sau de animale, la intreceri neautorizate pe drumurile publice"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Participarea sau organizarea de competiții neautorizate pe drumurile publice constituie o infracțiune gravă și se sancționează penal conform legii. Aceste acțiuni implică un risc semnificativ atât pentru participanți, cât și pentru ceilalți utilizatori ai drumurilor publice, deoarece pot duce la accidente sau alte incidente cu consecințe serioase. De asemenea, în cazul în care conducătorul auto este implicat într-o astfel de activitate, acest lucru poate duce la suspendarea sau anularea permisului de conducere, accentuând gravitatea faptelor comise. Respectarea normelor rutiere și a reglementărilor legale este esențială pentru siguranța tuturor participanților la trafic.",
+    "category": "Doneaza"
+  },
+  {
+    "id": 117,
+    "title": "Cand se retine certificatul de inmatriculare?",
+    "variants": [
+      {
+        "letter": "A",
+        "text": "cand autoturismul nu are efectuata inspectia tehnica"
+      },
+      {
+        "letter": "B",
+        "text": "cand autoturismul nu a fost asigurat de raspundere civila in caz de pagube materiale produse tertilor prin accidente de circulatie, conform legii"
+      },
+      {
+        "letter": "C",
+        "text": "cand autoturismul nu are montata una din placutele cu numarul de inmatriculare"
+      }
+    ],
+    "correctLetter": "A",
+    "explanation": "Certificatul de înmatriculare se reține în mai multe situații specifice. Una dintre acestea este absența uneia dintre plăcuțele cu numărul de înmatriculare de pe autovehicul. În asemenea cazuri, conducătorul auto poate fi sancționat cu o amendă corespunzătoare, între 9 și 20 de puncte de amendă, și poate primi, de asemenea, șase puncte de penalizare. În plus față de aceste sancțiuni, certificatul de înmatriculare va fi reținut. Alte situații care pot conduce la reținerea certificatului includ lipsa unei asigurări auto obligatorii valide sau neefectuarea inspecției tehnice periodice. În cazul lipsei asigurării, pe lângă reținerea certificatului, se dispune și retragerea plăcuțelor de înmatriculare, iar amenda aplicată în acest caz este considerabilă. Este important să fiți la curent cu toate aceste aspecte pentru a evita orice probleme legale sau sancțiuni suplimentare.",
+    "category": "Doneaza"
+  }
+]
