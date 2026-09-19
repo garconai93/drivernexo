@@ -1,0 +1,27 @@
+{
+  "name": "DriverEdBuddy - Permis Auto Quiz",
+  "short_name": "DriverEdBuddy",
+  "description": "Jurnal digital de conducere + chestionare DRPCIV reale pentru elev si parinte. 1432 intrebari oficiale cu explicatii.",
+  "start_url": "/driveredbuddy/",
+  "scope": "/driveredbuddy/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "lang": "ro",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%236ee7b7'/><text x='50%25' y='52%25' font-family='system-ui' font-size='120' font-weight='800' text-anchor='middle' dominant-baseline='middle' fill='%230b0d12'>D</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%236ee7b7'/><text x='50%25' y='52%25' font-family='system-ui' font-size='320' font-weight='800' text-anchor='middle' dominant-baseline='middle' fill='%230b0d12'>D</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

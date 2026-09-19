@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="DriverEdBuddy - Jurnal digital de conducere pentru soferi incepatori + ghid structurat pentru parinte. Quiz DRPCIV interactiv cu 5 intrebari reale, 9 flashcard-uri cu reguli esentiale si 6 greseli care picie 8 din 10 candidati." />
   <meta name="theme-color" content="#0b0d12" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DriverEdBuddy" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>DriverEdBuddy - Quiz DRPCIV interactiv + jurnal de condus pentru parinte</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -838,6 +843,61 @@
     .mistake h4 { font-size: 15px; color: var(--danger); margin-bottom: 8px; }
     .mistake p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
 
+    /* ---------- Progress section ---------- */
+    .progress-card {
+      background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-elev-2) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .progress-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 720px) { .progress-grid { grid-template-columns: repeat(2, 1fr); } }
+    .progress-stat {
+      padding: 16px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      text-align: center;
+    }
+    .progress-stat .num {
+      font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      line-height: 1;
+    }
+    .progress-stat .label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .progress-bars { display: grid; gap: 10px; }
+    .progress-bar-row {
+      display: grid; grid-template-columns: 140px 1fr 50px; align-items: center; gap: 12px;
+      font-size: 13px;
+    }
+    @media (max-width: 600px) { .progress-bar-row { grid-template-columns: 100px 1fr 40px; font-size: 12px; } }
+    .progress-bar-name { color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .progress-bar-track {
+      height: 8px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px; transition: width 0.5s ease;
+    }
+    .progress-bar-pct { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; text-align: right; }
+    .progress-empty {
+      padding: 32px 20px; text-align: center;
+      color: var(--text-muted); font-size: 14px;
+    }
+    .progress-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+
+    /* ---------- Mark wrong / Repeat mode ---------- */
+    .quiz-mark {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 8px;
+      background: rgba(248, 113, 113, 0.08);
+      border: 1px solid rgba(248, 113, 113, 0.25);
+      color: var(--danger); cursor: pointer; font-size: 13px;
+      transition: all 0.15s ease;
+    }
+    .quiz-mark:hover { background: rgba(248, 113, 113, 0.15); }
+    .quiz-mark.marked { background: rgba(248, 113, 113, 0.25); border-color: var(--danger); }
+
     /* ---------- Pricing ---------- */
     .pricing-grid {
       display: grid;
@@ -1087,6 +1147,7 @@
         <a href="#functionalitati">Functionalitati</a>
         <a href="#quiz">Chestionare</a>
         <a href="#mediu-invatare">Invata</a>
+        <a href="#progres">Progres</a>
         <a href="#poveste">Poveste</a>
         <a href="#preturi">Preturi</a>
         <a href="#faq">Intrebari</a>
@@ -1608,6 +1669,51 @@
     </div>
   </section>
 
+  <!-- ===== Progres (local, fara cont) ===== -->
+  <section id="progres">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Progresul tau</span>
+        <h2 class="section-title">Statisticile se salveaza pe telefonul tau, fara cont</h2>
+        <p class="section-sub">
+          Faci un chestionar, marchezi intrebarile grele, vinzi repetate pana le inveti.
+          Nimic nu pleaca de pe telefon - totul e in localStorage.
+        </p>
+      </div>
+
+      <div class="progress-card reveal">
+        <div class="progress-grid">
+          <div class="progress-stat">
+            <div class="num" id="stat-quizzes">0</div>
+            <div class="label">Chestionare completate</div>
+          </div>
+          <div class="progress-stat">
+            <div class="num" id="stat-accuracy">—</div>
+            <div class="label">Acuratete medie</div>
+          </div>
+          <div class="progress-stat">
+            <div class="num" id="stat-streak">0</div>
+            <div class="label">Zile consecutive</div>
+          </div>
+          <div class="progress-stat">
+            <div class="num" id="stat-marked">0</div>
+            <div class="label">Intrebari de repetat</div>
+          </div>
+        </div>
+
+        <h4 style="font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;">Progres pe capitole</h4>
+        <div class="progress-bars" id="progress-bars">
+          <div class="progress-empty">Fa un chestionar pentru a vedea progresul pe capitole.</div>
+        </div>
+
+        <div class="progress-actions">
+          <button class="btn btn-primary" id="btn-review-marked" type="button">Repeta intrebarile marcate</button>
+          <button class="btn btn-ghost" id="btn-reset" type="button">Reseteaza progresul</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Pricing ===== -->
   <section id="preturi">
     <div class="container">
@@ -1759,6 +1865,7 @@
           <a href="#functionalitati">Functionalitati</a>
           <a href="#quiz">Chestionare DRPCIV</a>
           <a href="#mediu-invatare">Mediu de invatare</a>
+          <a href="#progres">Progresul tau</a>
           <a href="#preturi">Preturi</a>
           <a href="#faq">Intrebari frecvente</a>
           <a href="#start">Descarca</a>
@@ -2158,6 +2265,38 @@
         btn.addEventListener('click', () => handleAnswer(btn, o, shuffled));
         $('quiz-opts').appendChild(btn);
       });
+
+      // Mark button (only for real DRPCIV questions with numeric id)
+      let markBtn = $('quiz-mark-btn');
+      if (!markBtn) {
+        markBtn = document.createElement('button');
+        markBtn.id = 'quiz-mark-btn';
+        markBtn.type = 'button';
+        markBtn.className = 'quiz-mark';
+        markBtn.innerHTML = '⚑ Marcheaza ca grea';
+        markBtn.style.marginTop = '14px';
+        markBtn.addEventListener('click', () => {
+          const id = quizState.currentQId;
+          if (!id) return;
+          const nowMarked = toggleMark(id);
+          markBtn.classList.toggle('marked', nowMarked);
+          markBtn.innerHTML = nowMarked ? '⚑ Marcata (repet-o)' : '⚑ Marcheaza ca grea';
+          renderProgress();
+        });
+        $('quiz-opts').after(markBtn);
+      }
+      // Update mark state for current question
+      const qId = (q.cat && q.cat.startsWith('DRPCIV Real #')) ? parseInt(q.cat.replace('DRPCIV Real #', '')) : null;
+      quizState.currentQId = qId;
+      if (qId) {
+        const m = loadMarked();
+        const isMarked = !!m[qId];
+        markBtn.classList.toggle('marked', isMarked);
+        markBtn.innerHTML = isMarked ? '⚑ Marcata (repet-o)' : '⚑ Marcheaza ca grea';
+        markBtn.style.display = '';
+      } else {
+        markBtn.style.display = 'none';
+      }
     }
 
     function handleAnswer(btn, opt, all) {
@@ -2346,6 +2485,137 @@
       startQuiz(mode, cat);
     }
 
+    // ====== Progress tracking + Leitner spaced repetition ======
+    const PROGRESS_KEY = 'deb.progress.v1';
+    const MARKED_KEY = 'deb.marked.v1';
+    const STREAK_KEY = 'deb.streak.v1';
+
+    function loadProgress() {
+      try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch { return {}; }
+    }
+    function saveProgress(p) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
+
+    function loadMarked() {
+      try { return JSON.parse(localStorage.getItem(MARKED_KEY)) || {}; } catch { return {}; }
+    }
+    function saveMarked(m) { localStorage.setItem(MARKED_KEY, JSON.stringify(m)); }
+
+    function loadStreak() {
+      try { return JSON.parse(localStorage.getItem(STREAK_KEY)) || { last: null, count: 0 }; } catch { return { last: null, count: 0 }; }
+    }
+    function saveStreak(s) { localStorage.setItem(STREAK_KEY, JSON.stringify(s)); }
+
+    function today() { return new Date().toISOString().slice(0, 10); }
+    function bumpStreak() {
+      const s = loadStreak();
+      const d = today();
+      if (s.last === d) return s.count;
+      if (s.last) {
+        const prev = new Date(s.last);
+        const cur = new Date(d);
+        const diff = Math.round((cur - prev) / (1000 * 60 * 60 * 24));
+        s.count = diff === 1 ? s.count + 1 : 1;
+      } else {
+        s.count = 1;
+      }
+      s.last = d;
+      saveStreak(s);
+      return s.count;
+    }
+
+    function recordQuizResult(score, total, catName) {
+      const p = loadProgress();
+      if (!p.total) p.total = { correct: 0, asked: 0 };
+      p.total.correct += score;
+      p.total.asked += total;
+      const key = catName || 'General';
+      if (!p.byCat) p.byCat = {};
+      if (!p.byCat[key]) p.byCat[key] = { correct: 0, asked: 0, runs: 0 };
+      p.byCat[key].correct += score;
+      p.byCat[key].asked += total;
+      p.byCat[key].runs += 1;
+      saveProgress(p);
+      bumpStreak();
+      renderProgress();
+    }
+
+    function toggleMark(qId) {
+      const m = loadMarked();
+      if (m[qId]) {
+        delete m[qId];
+        saveMarked(m);
+        return false;
+      }
+      m[qId] = Date.now();
+      saveMarked(m);
+      return true;
+    }
+
+    function renderProgress() {
+      const p = loadProgress();
+      const m = loadMarked();
+      const s = loadStreak();
+
+      $('stat-quizzes').textContent = p.total && p.total.asked > 0 ? Math.round(p.total.asked / 5) : 0;
+      const acc = p.total && p.total.asked ? Math.round((p.total.correct / p.total.asked) * 100) : null;
+      $('stat-accuracy').textContent = acc === null ? '—' : acc + '%';
+      $('stat-streak').textContent = s.count || 0;
+      $('stat-marked').textContent = Object.keys(m).length;
+
+      const bars = $('progress-bars');
+      if (!p.byCat || Object.keys(p.byCat).length === 0) {
+        bars.innerHTML = '<div class="progress-empty">Fa un chestionar pentru a vedea progresul pe capitole.</div>';
+        return;
+      }
+      const entries = Object.entries(p.byCat).sort((a,b) => b[1].asked - a[1].asked);
+      let html = '';
+      for (const [cat, d] of entries) {
+        const pct = d.asked ? Math.round((d.correct / d.asked) * 100) : 0;
+        const color = pct >= 80 ? 'var(--accent)' : pct >= 60 ? 'var(--accent-warm)' : 'var(--danger)';
+        html += `<div class="progress-bar-row"><div class="progress-bar-name" title="${cat}">${cat}</div><div class="progress-bar-track"><div class="progress-bar-fill" style="width:${pct}%; background:${color}"></div></div><div class="progress-bar-pct">${pct}%</div></div>`;
+      }
+      bars.innerHTML = html;
+    }
+
+    function resetProgress() {
+      if (!confirm('Sigur stergi tot progresul? Actiunea nu poate fi anulata.')) return;
+      localStorage.removeItem(PROGRESS_KEY);
+      localStorage.removeItem(MARKED_KEY);
+      localStorage.removeItem(STREAK_KEY);
+      renderProgress();
+    }
+
+    function reviewMarked() {
+      const m = loadMarked();
+      const ids = Object.keys(m).map(Number);
+      if (ids.length === 0) {
+        alert('Nu ai intrebari marcate. Rezolva un chestionar si apasa "Marcheaza" la intrebarile grele.');
+        return;
+      }
+      if (!REAL_QUESTIONS || !REAL_QUESTIONS.length) {
+        alert('Incarca mai intai modul "Real DRPCIV" pentru a accesa cele 1432 intrebari.');
+        return;
+      }
+      const marked = REAL_QUESTIONS.filter(q => ids.includes(q.id));
+      if (marked.length === 0) {
+        alert('Intrebarile marcate nu au fost gasite in baza de date.');
+        return;
+      }
+      quizState.deck = shuffle(marked.map(adaptReal)).slice(0, Math.min(15, marked.length));
+      quizState.i = 0;
+      quizState.score = 0;
+      quizMode = 'review';
+      $('quiz-mode-label').textContent = 'Repetare · ' + quizState.deck.length + ' intrebari marcate';
+      $('quiz-body').style.display = 'block';
+      $('quiz-result').classList.remove('show');
+      $('quiz-timer-wrap').style.display = 'none';
+      loadQuestion();
+      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    $('btn-reset') && $('btn-reset').addEventListener('click', resetProgress);
+    $('btn-review-marked') && $('btn-review-marked').addEventListener('click', reviewMarked);
+
     // Init: bind mode buttons
     document.querySelectorAll('.quiz-mode-btn').forEach(b => {
       b.addEventListener('click', () => {
@@ -2387,6 +2657,14 @@
         else msg = 'Ai nevoie de mai mult timp de studiu. Incepe cu flashcard-urile.';
       }
       $('quiz-msg').textContent = msg;
+      // Record result for progress tracking
+      let catName = 'General';
+      if (quizMode === 'categoria') catName = quizState.activeCat || 'General';
+      else if (quizMode === 'real') catName = 'DRPCIV Real';
+      else if (quizMode === 'rapid') catName = 'Rapid';
+      else if (quizMode === 'examen') catName = 'Examen';
+      else if (quizMode === 'review') catName = 'Repetare';
+      try { recordQuizResult(score, total, catName); } catch(e) { console.error('progress save:', e); }
     };
 
     // Patch restartQuiz to use current mode
@@ -2409,6 +2687,16 @@
       }
       setMode('rapid');
     }
+
+    // ====== PWA: register service worker ======
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+
+    // Render initial progress on load
+    renderProgress();
   </script>
 </body>
 </html>
