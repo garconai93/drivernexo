@@ -1,6 +1,6 @@
-# DriverEdBuddy - Landing Page
+# DriverNexo - Landing Page
 
-Landing page pentru **DriverEdBuddy**: jurnal digital de conducere pentru șoferi începători + ghid structurat pentru părinte, cu lecții video scurte pe 12 săptămâni.
+Landing page pentru **DriverNexo**: jurnal digital de conducere pentru șoferi începători + ghid structurat pentru părinte, cu lecții video scurte pe 12 săptămâni.
 
 ## Cuprins
 
@@ -37,7 +37,7 @@ Designul este **dark-mode modern**, mobile-first, complet responsive, cu animaț
 ## Structură
 
 ```
-driveredbuddy/
+drivernexo/
 ├── index.html      # landing page completă (~1325 linii)
 └── README.md       # acest fișier
 ```
@@ -54,7 +54,7 @@ python3 -m http.server 8080
 ## Deployment
 
 Pagina este publicată automat prin **GitHub Pages** la:
-**https://garconai93.github.io/driveredbuddy/**
+**https://garconai93.github.io/drivernexo/**
 
 Deploy manual:
 

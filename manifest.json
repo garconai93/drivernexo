@@ -1,9 +1,9 @@
 {
-  "name": "DriverEdBuddy - Permis Auto Quiz",
-  "short_name": "DriverEdBuddy",
+  "name": "DriverNexo - Permis Auto Quiz",
+  "short_name": "DriverNexo",
   "description": "Jurnal digital de conducere + chestionare DRPCIV reale pentru elev si parinte. 1432 intrebari oficiale cu explicatii.",
-  "start_url": "/driveredbuddy/",
-  "scope": "/driveredbuddy/",
+  "start_url": "/drivernexo/",
+  "scope": "/drivernexo/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0b0d12",

@@ -1,5 +1,5 @@
-// DriverEdBuddy Service Worker - simple offline-first cache
-const CACHE = 'driveredbuddy-v1';
+// DriverNexo Service Worker - simple offline-first cache
+const CACHE = 'drivernexo-v1';
 const ASSETS = [
   './',
   './index.html',
