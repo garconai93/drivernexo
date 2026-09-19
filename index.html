@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DriverEdBuddy - Jurnal digital de conducere pentru soferi incepatori + ghid structurat pentru parinte. Plan pe 12 saptamani, lectii video, scor pe manevre si pregatire pentru examen." />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>DriverEdBuddy - Jurnal digital de condus & ghid pentru parinte</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --bg: #0b0d12;
+      --bg-elev: #11141c;
+      --bg-elev-2: #161a25;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #e8eaf0;
+      --text-muted: #9aa3b2;
+      --text-dim: #6b7280;
+      --accent: #6ee7b7;
+      --accent-2: #38bdf8;
+      --accent-warm: #fbbf24;
+      --danger: #f87171;
+      --radius-sm: 8px;
+      --radius: 14px;
+      --radius-lg: 22px;
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.5);
+      --max-w: 1180px;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img, svg { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    h1, h2, h3, h4 { line-height: 1.2; margin: 0; letter-spacing: -0.02em; }
+    p { margin: 0; }
+    ul { padding: 0; margin: 0; list-style: none; }
+
+    /* ---------- Layout helpers ---------- */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    section { padding: 80px 0; position: relative; }
+    @media (max-width: 720px) {
+      section { padding: 56px 0; }
+      .container { padding: 0 20px; }
+    }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(11, 13, 18, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    .brand-mark {
+      width: 32px; height: 32px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid; place-items: center;
+      color: #0b0d12;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(110, 231, 183, 0.3);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 13.5px;
+      transition: transform 0.15s, background 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); background: white; }
+    @media (max-width: 720px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      padding: 96px 0 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle at center, rgba(110, 231, 183, 0.15), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 920px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(110, 231, 183, 0.08);
+      border: 1px solid rgba(110, 231, 183, 0.2);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-sub {
+      margin-top: 22px;
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.55;
+    }
+    .hero-cta {
+      margin-top: 36px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: transform 0.15s, background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b0d12;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
+    }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+    }
+    .btn-ghost:hover { background: rgba(255, 255, 255, 0.08); }
+    .hero-meta {
+      margin-top: 32px;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+    .hero-meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ---------- Hero visual (phone mock) ---------- */
+    .phone {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+      aspect-ratio: 9 / 19;
+      background: linear-gradient(180deg, #1a1f2e, #0e1118);
+      border-radius: 38px;
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-lg);
+      padding: 14px;
+      overflow: hidden;
+    }
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 24px;
+      background: var(--bg);
+      border-radius: 14px;
+      z-index: 2;
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      border-radius: 26px;
+      padding: 50px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+    }
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .phone-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .phone-label {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+    .phone-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .phone-stat strong {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .phone-stat span { font-size: 12px; color: var(--text-muted); }
+    .phone-progress {
+      margin-top: 10px;
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .phone-progress-fill {
+      height: 100%;
+      width: 68%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+    }
+    .phone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .phone-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--text);
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 9px;
+    }
+    .phone-list .check {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .phone-list .score {
+      color: var(--accent-warm);
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+
+    /* ---------- Section header ---------- */
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      max-width: 720px;
+    }
+    .section-sub {
+      margin-top: 14px;
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 640px;
+      line-height: 1.55;
+    }
+    .section-head {
+      margin-bottom: 48px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-head .section-eyebrow,
+    .section-head .section-title,
+    .section-head .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* ---------- Problem section ---------- */
+    .problem {
+      background: linear-gradient(180deg, transparent, rgba(110, 231, 183, 0.03));
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 820px) {
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+    .problem-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .problem-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-3px);
+    }
+    .problem-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--accent-warm);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .problem-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .problem-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* ---------- Features section ---------- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    @media (max-width: 820px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    .feature {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    }
+    .feature-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .feature h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .feature p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .feature-tag {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-2);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- How it works ---------- */
+    .how {
+      background: var(--bg-elev);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      counter-reset: step;
+    }
+    @media (max-width: 900px) { .how-steps { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .how-steps { grid-template-columns: 1fr; } }
+    .how-step {
+      counter-increment: step;
+      position: relative;
+      padding-top: 28px;
+    }
+    .how-step::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .how-step::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 38px;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-strong), transparent);
+    }
+    .how-step h4 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .how-step p {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.55;
+    }
+
+    /* ---------- Persona / quote ---------- */
+    .persona-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 820px) { .persona-wrap { grid-template-columns: 1fr; } }
+    .persona-card {
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+    }
+    .persona-card::before {
+      content: '"';
+      position: absolute;
+      top: -8px; left: 24px;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--accent);
+      font-family: Georgia, serif;
+    }
+    .quote-text {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .quote-author {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .quote-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      display: grid; place-items: center;
+      color: #0b0d12;
+      font-weight: 700;
+    }
+    .quote-name {
+      font-weight: 600;
+      font-size: 14.5px;
+    }
+    .quote-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .persona-info h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .persona-info p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .persona-info .stat-row {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .persona-stat {
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+    }
+    .persona-stat strong {
+      display: block;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .persona-stat span {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ---------- Pricing ---------- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    @media (max-width: 720px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .price-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(110, 231, 183, 0.05), var(--bg-elev));
+      box-shadow: 0 0 0 1px var(--accent), 0 20px 60px rgba(110, 231, 183, 0.1);
+    }
+    .price-ribbon {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      padding: 5px 12px;
+      background: var(--accent);
+      color: #0b0d12;
+      font-size: 11.5px;
+      font-weight: 700;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .price-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .price-amount {
+      margin: 14px 0 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .price-amount strong {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .price-amount span {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .price-desc {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      margin-bottom: 24px;
+    }
+    .price-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+    .price-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .price-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border-strong);
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .price-cta:hover { background: var(--bg-elev); border-color: var(--text-muted); }
+    .price-cta.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b0d12;
+      border-color: transparent;
+    }
+    .price-cta.primary:hover { transform: translateY(-2px); }
+
+    /* ---------- FAQ ---------- */
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-item {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item[open] { border-color: var(--border-strong); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 24px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text-muted);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .faq-item[open] .faq-q::after { transform: rotate(45deg); }
+    .faq-a {
+      padding: 0 24px 22px;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ---------- CTA strip ---------- */
+    .cta-strip {
+      background: linear-gradient(135deg, rgba(110, 231, 183, 0.1), rgba(56, 189, 248, 0.08));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 0;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-strip p {
+      margin-top: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-strip .hero-cta { justify-content: center; margin-top: 32px; }
+
+    /* ---------- Footer ---------- */
+    footer {
+      padding: 56px 0 32px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .footer-col h5 {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      padding: 6px 0;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--text); }
+    .footer-brand p {
+      margin-top: 12px;
+      max-width: 280px;
+      line-height: 1.55;
+    }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    /* ---------- Reveal animation ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- Focus ---------- */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Nav ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="brand" aria-label="DriverEdBuddy">
+        <span class="brand-mark">D</span>
+        <span>DriverEdBuddy</span>
+      </a>
+      <nav class="nav-links" aria-label="Navigare principala">
+        <a href="#problema">Problema</a>
+        <a href="#functionalitati">Functionalitati</a>
+        <a href="#poveste">Poveste</a>
+        <a href="#preturi">Preturi</a>
+        <a href="#faq">Intrebari</a>
+        <a href="#start" class="nav-cta">Incepe gratuit →</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-badge">
+            <span class="dot" aria-hidden="true"></span>
+            Lansare in Romania - toamna 2026
+          </span>
+          <h1>
+            Preda-i copilului tau <span class="accent">condusul</span> cu un plan clar, nu din toane.
+          </h1>
+          <p class="hero-sub">
+            DriverEdBuddy iti da un plan pe 12 saptamani, lectii video scurte pentru fiecare manevra,
+            un jurnal al orelor conduse si un quiz pentru proba teoretica - tot ce trebuie ca Andrei
+            sau Maria sa ia permisul din prima.
+          </p>
+          <div class="hero-cta">
+            <a href="#start" class="btn btn-primary">
+              Descarca aplicatia →
+            </a>
+            <a href="#functionalitati" class="btn btn-ghost">
+              Vezi cum functioneaza
+            </a>
+          </div>
+          <div class="hero-meta">
+            <span><strong>250.000+</strong> permise/an in RO</span>
+            <span><strong>30+</strong> lectii video scurte</span>
+            <span><strong>12 saptamani</strong> plan complet</span>
+          </div>
+        </div>
+
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span>09:41</span>
+              <span>Saptamana 8 / 12</span>
+            </div>
+
+            <div class="phone-card">
+              <div class="phone-label">Andrei - progres</div>
+              <div class="phone-stat">
+                <strong>34h</strong>
+                <span>conduse</span>
+              </div>
+              <div class="phone-progress" aria-label="Progres 68%">
+                <div class="phone-progress-fill"></div>
+              </div>
+            </div>
+
+            <div class="phone-card">
+              <div class="phone-label">Azi - manevre</div>
+              <ul class="phone-list">
+                <li><span>Parcare laterala</span><span class="check">✓</span></li>
+                <li><span>Intoarcere 3</span><span class="check">✓</span></li>
+                <li><span>Start rampa</span><span class="score">4.2 / 5</span></li>
+                <li><span>Autostrada</span><span class="score">3.8 / 5</span></li>
+              </ul>
+            </div>
+
+            <div class="phone-card">
+              <div class="phone-label">Quiz teoretic</div>
+              <div class="phone-stat">
+                <strong>27</strong>
+                <span>/ 30 corecte</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Problem ===== -->
+  <section id="problema" class="problem">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Problema reala</span>
+        <h2 class="section-title">Permisul in Romania e scump, lung si haotic la domiciliu</h2>
+        <p class="section-sub">
+          Scola de soferi iti da 30 de ore de condus. Insa adevaratul volum il pune parintele in weekend -
+          fara un plan clar, fara un mod de a masura progresul si fara o metoda de a pregati examenul.
+        </p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <div class="problem-icon">📅</div>
+          <h3>Luni intregi fara structura</h3>
+          <p>Intre sedintele de la scoala auto trec saptamani intregi. Parintele iese la condus cand are chef, nu cand are un obiectiv clar de parcurs.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">🎯</div>
+          <h3>Fara progres masurabil</h3>
+          <p>"Cred ca merge mai bine" nu e un indicator. Fara scor pe manevre si fara un istoric, nu stii daca esti pe drumul cel bun sau doar repeti aceleasi greseli.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">📚</div>
+          <h3>Pregatire haotica pentru examen</h3>
+          <p>Chestionare auto pe hartie, explicatii pe YouTube, sfaturi pe WhatsApp. Nu exista o metoda unica, in romana, construita special pentru elevul roman.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section id="functionalitati">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Functionalitati</span>
+        <h2 class="section-title">Tot ce trebuie ca elevul sa ia permisul din prima</h2>
+        <p class="section-sub">
+          Am construit DriverEdBuddy pentru parintii care vor sa predea condusul cu metoda, nu cu
+          noroc. Fiecare functionalitate are un singur scop: progres real si masurabil.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature reveal">
+          <div class="feature-num">FUN_01</div>
+          <h3>Plan de lectii pe 12 saptamani</h3>
+          <p>
+            30+ de manevre esentiale - paralelă, intoarcere 3, autostrada, intersectii cu sens giratoriu,
+            condus noaptea si pe ploaie - fiecare cu video de 60-90 secunde si checklist de parcurs.
+          </p>
+          <span class="feature-tag">Curriculum complet</span>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-num">FUN_02</div>
+          <h3>Mod "Dual Control" parinte-elev</h3>
+          <p>
+            Dupa fiecare sesiune de condus, parintele acorda un scor 1-5 pe fiecare manevra. Elevul vede
+            exact unde exceleaza si ce are de lucrat - fara certuri, cu date clare.
+          </p>
+          <span class="feature-tag">Scoring 1-5</span>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-num">FUN_03</div>
+          <h3>Contor ore & conditii de condus</h3>
+          <p>
+            Ore conduse, km parcursi, conditii (zi / noapte / ploaie / aglomeratie) - tot ce cere legislatia
+            si tot ce iti trebuie cand te intreaba cineva "ai exersat destul?".
+          </p>
+          <span class="feature-tag">Evidenta legala</span>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-num">FUN_04</div>
+          <h3>Quiz-uri rapide pentru proba teoretica</h3>
+          <p>
+            Chestionare auto actualizate la legislatia 2024-2026, cu explicatii clare in romana pentru
+            fiecare raspuns gresit. Invata din greseli, nu le repeta la examen.
+          </p>
+          <span class="feature-tag">Examen teoretic</span>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-num">FUN_05</div>
+          <h3>Comunitate de parinti si elevi</h3>
+          <p>
+            Andreea din Timisoara, Alex din Cluj, Radu din Iasi - schimba tips & tricks cu alti elevi
+            din aceeasi generatie. Sprijin real, nu forumuri vechi pline de spam.
+          </p>
+          <span class="feature-tag">Peer support</span>
+        </div>
+
+        <div class="feature reveal">
+          <div class="feature-num">FUN_06</div>
+          <h3>Export dosar pentru permis</h3>
+          <p>
+            PDF complet cu toate orele conduse, scorurile pe manevre si progresul - gata de printat si
+            predat la scoala auto. Fara hartii ratacite, fara "n-am adus carnetul".
+          </p>
+          <span class="feature-tag">Dosar permis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== How it works ===== -->
+  <section class="how">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Cum functioneaza</span>
+        <h2 class="section-title">De la "am scos permisul" la "stiu sa conduc" in 12 saptamani</h2>
+      </div>
+
+      <div class="how-steps">
+        <div class="how-step reveal">
+          <h4>Descarci si creezi profilul elevului</h4>
+          <p>Adaugi datele lui Andrei: varsta, scoala auto, data estimativa a examenului. In 2 minute e gata.</p>
+        </div>
+        <div class="how-step reveal">
+          <h4>Urmezi planul saptamanal</h4>
+          <p>Fiecare saptamana are 2-3 lectii video scurte si un checklist de manevre de exersat in weekend.</p>
+        </div>
+        <div class="how-step reveal">
+          <h4>Notezi orele conduse</h4>
+          <p>Dupa fiecare sesiune, parintele noteaza scorul pe manevre si conditiile (noapte, ploaie, oras).</p>
+        </div>
+        <div class="how-step reveal">
+          <h4>Pregatesti si sustii examenul</h4>
+          <p>Quiz-uri zilnice pentru teorie, recapitulare pe manevre slabe, export dosar - totul la final.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Persona / Quote ===== -->
+  <section id="poveste">
+    <div class="container">
+      <div class="persona-wrap">
+        <div class="persona-card reveal">
+          <p class="quote-text">
+            In weekend il luam pe Andrei prin cartier si nu stiam ce sa exersam. Parca tot timpul faceam
+            aceleasi lucruri. Cu DriverEdBuddy avem un plan clar: saptamana asta lucram intoarcerea 3 si
+            startul in rampa. La urmatoarea sedinta la scoala auto, instructorul a zis ca a vazut progres
+            real.
+          </p>
+          <div class="quote-author">
+            <div class="quote-avatar">C</div>
+            <div>
+              <div class="quote-name">Cristian, 49 ani</div>
+              <div class="quote-role">Tatal lui Andrei - Bucuresti</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="persona-info reveal">
+          <h3>Pentru parintele care vrea sa predea condusul cu metoda</h3>
+          <p>
+            Stii ca cele mai importante 40-60 de ore de condus ale copilului tau le faci tu, in weekend,
+            intre sedintele oficiale. Fara un sistem, orele astea se pierd.
+          </p>
+          <p>
+            DriverEdBuddy iti transforma weekendurile de condus intr-un curriculum structurat, cu date
+            clare despre progres si cu pregatire integrata pentru examenul final.
+          </p>
+          <div class="stat-row">
+            <div class="persona-stat">
+              <strong>12</strong>
+              <span>saptamani plan</span>
+            </div>
+            <div class="persona-stat">
+              <strong>30+</strong>
+              <span>manevre video</span>
+            </div>
+            <div class="persona-stat">
+              <strong>100%</strong>
+              <span>in romana</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Pricing ===== -->
+  <section id="preturi">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Preturi</span>
+        <h2 class="section-title">Cat costa linistea ca cel mic ia permisul din prima?</h2>
+        <p class="section-sub">
+          Mai putin decat o sedinta la scoala auto. Mai valoros decat orice meditator.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <div class="price-name">Gratuit</div>
+          <div class="price-amount">
+            <strong>0</strong>
+            <span>lei</span>
+          </div>
+          <p class="price-desc">Pentru a incerca aplicatia si a vedea daca ti se potriveste.</p>
+          <ul class="price-features">
+            <li>Primele 4 saptamani din plan</li>
+            <li>5 lectii video complete</li>
+            <li>1 profil elev + 1 profil parinte</li>
+            <li>Contor ore conduse (doar numar, fara grafice)</li>
+            <li>Quiz teoretic: 5 intrebari / zi</li>
+          </ul>
+          <a href="#start" class="price-cta">Descarca gratuit</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <span class="price-ribbon">Recomandat</span>
+          <div class="price-name">Pro - 1 an</div>
+          <div class="price-amount">
+            <strong>119</strong>
+            <span>lei / an per elev</span>
+          </div>
+          <p class="price-desc">Plan complet pana la examen. Mai putin de 10 lei pe luna.</p>
+          <ul class="price-features">
+            <li>Plan complet 12 saptamani, toate cele 30+ lectii video</li>
+            <li>Mod Dual Control cu scor pe fiecare manevra</li>
+            <li>Contor ore + grafice de progres</li>
+            <li>Quiz teoretic nelimitat, cu explicatii</li>
+            <li>Comunitate privata elevi + parinti</li>
+            <li>Export PDF dosar permis</li>
+            <li>Fara reclame, actualizari pe viata</li>
+          </ul>
+          <a href="#start" class="price-cta primary">Incepe perioada Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Intrebari frecvente</span>
+        <h2 class="section-title">Ce te mai framanta</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item reveal">
+          <summary class="faq-q">Aplicatia inlocuieste scoala de soferi?</summary>
+          <div class="faq-a">
+            Nu. DriverEdBuddy este un instrument pentru orele de condus pe care le faci tu acasa cu elevul,
+            intre sedintele oficiale. Pentru obtinerea permisului, scoala auto ramane obligatorie - noi te
+            ajutam sa profiti la maxim de orele suplimentare.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary class="faq-q">Trebuie sa stiu sa conduc ca sa folosesc aplicatia?</summary>
+          <div class="faq-a">
+            Da - aplicatia este pentru parinti care deja stiu sa conduca si vor sa predea copilului lor.
+            Daca tu nu esti sofer, poti doar sa instalezi aplicatia pentru elev si sa o folositi impreuna
+            cu instructorul de la scoala auto.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary class="faq-q">Ce varsta ar trebui sa aiba elevul?</summary>
+          <div class="faq-a">
+            In Romania, varsta minima pentru scoala auto este 17 ani si 9 luni (categoria B). Aplicatia este
+            utila din momentul in care elevul s-a inscris la scoala auto si pana la examenul final, indiferent
+            daca face scoala in clasa a 12-a sau mai tarziu.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary class="faq-q">Pe ce dispozitive functioneaza?</summary>
+          <div class="faq-a">
+            In faza MVP lansam pe iOS si Android. Aplicatia functioneaza pe telefon sau tableta - nu ai
+            nevoie de un device scump. Datele se sincronizeaza intre profilul parintelui si cel al
+            elevului, deci poti nota scoruri de pe telefonul tau imediat dupa condus.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary class="faq-q">Chestionarele sunt conforme cu examenul oficial?</summary>
+          <div class="faq-a">
+            Da. Includem intrebari din chestionarele oficiale DRPCIV, actualizate conform legislatiei
+            din 2024-2026. Fiecare intrebare gresita vine cu o explicatie scurta ca elevul sa inteleaga
+            de ce raspunsul corect este cel ales.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary class="faq-q">Pot anula oricand planul Pro?</summary>
+          <div class="faq-a">
+            Da. Anularea se face din setarile contului, fara intrebari si fara taxe ascunse. Daca anulezi
+            in primele 14 zile, iti returnam integral suma platita - garantat.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA Strip ===== -->
+  <section class="cta-strip" id="start">
+    <div class="container reveal">
+      <h2>Da-i copilului tau cel mai bun start in condus</h2>
+      <p>
+        12 saptamani, 30+ lectii video, un plan clar. Descarca gratuit primele 4 saptamani si vezi
+        daca metoda functioneaza pentru familia ta.
+      </p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Descarca pentru iOS</a>
+        <a href="#" class="btn btn-ghost">Descarca pentru Android</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <a href="#" class="brand">
+            <span class="brand-mark">D</span>
+            <span>DriverEdBuddy</span>
+          </a>
+          <p>
+            Jurnal digital de conducere pentru soferi incepatori si ghid structurat pentru parinte.
+            Construit in Romania, pentru Romania.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Produs</h5>
+          <a href="#functionalitati">Functionalitati</a>
+          <a href="#preturi">Preturi</a>
+          <a href="#faq">Intrebari frecvente</a>
+          <a href="#start">Descarca</a>
+        </div>
+        <div class="footer-col">
+          <h5>Companie</h5>
+          <a href="#poveste">Povestea noastra</a>
+          <a href="#">Parteneriate scoli auto</a>
+          <a href="#">Contact</a>
+          <a href="#">Termeni & confidentialitate</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DriverEdBuddy. Toate drepturile rezervate.</span>
+        <span>Construit in Bucuresti, pentru parintii din Romania.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ----- Reveal on scroll -----
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // ----- Smooth close for FAQ (single-open behaviour) -----
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if (item.open) {
+          document.querySelectorAll('.faq-item').forEach((other) => {
+            if (other !== item) other.open = false;
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
