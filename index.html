@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="DriverEdBuddy - Jurnal digital de conducere pentru soferi incepatori + ghid structurat pentru parinte. Plan pe 12 saptamani, lectii video, scor pe manevre si pregatire pentru examen." />
+  <meta name="description" content="DriverEdBuddy - Jurnal digital de conducere pentru soferi incepatori + ghid structurat pentru parinte. Quiz DRPCIV interactiv cu 5 intrebari reale, 9 flashcard-uri cu reguli esentiale si 6 greseli care picie 8 din 10 candidati." />
   <meta name="theme-color" content="#0b0d12" />
-  <title>DriverEdBuddy - Jurnal digital de condus & ghid pentru parinte</title>
+  <title>DriverEdBuddy - Quiz DRPCIV interactiv + jurnal de condus pentru parinte</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -615,6 +615,182 @@
       color: var(--text-muted);
     }
 
+    /* ---------- Quiz section ---------- */
+    .quiz-wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 28px; align-items: start; }
+    @media (max-width: 920px) { .quiz-wrap { grid-template-columns: 1fr; } }
+    .quiz-card {
+      background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-elev-2) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .quiz-meta {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-bottom: 18px; font-size: 13px; color: var(--text-muted);
+    }
+    .quiz-meta .pill {
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(110, 231, 183, 0.12); color: var(--accent);
+      border: 1px solid rgba(110, 231, 183, 0.25);
+      font-weight: 600; letter-spacing: 0.02em;
+    }
+    .quiz-progress {
+      height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px;
+      overflow: hidden; margin-bottom: 18px;
+    }
+    .quiz-progress-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.4s ease;
+    }
+    .quiz-cat {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent-2);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .quiz-q { font-size: 20px; font-weight: 600; line-height: 1.35; margin: 8px 0 22px; }
+    @media (max-width: 720px) { .quiz-q { font-size: 18px; } }
+    .quiz-opts { display: grid; gap: 10px; }
+    .quiz-opt {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border-radius: var(--radius);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.18s ease;
+      text-align: left; width: 100%; font-size: 15px;
+    }
+    .quiz-opt:hover:not(:disabled) {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border-strong);
+      transform: translateX(2px);
+    }
+    .quiz-opt .key {
+      width: 28px; height: 28px; flex-shrink: 0;
+      display: grid; place-items: center;
+      border-radius: 8px; background: rgba(255,255,255,0.06);
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
+      color: var(--text-muted);
+    }
+    .quiz-opt.correct {
+      background: rgba(110, 231, 183, 0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .quiz-opt.correct .key { background: var(--accent); color: var(--bg); }
+    .quiz-opt.wrong {
+      background: rgba(248, 113, 113, 0.10);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .quiz-opt.wrong .key { background: var(--danger); color: var(--bg); }
+    .quiz-opt:disabled { cursor: default; opacity: 0.7; }
+    .quiz-opt.correct:disabled, .quiz-opt.wrong:disabled { opacity: 1; }
+    .quiz-explain {
+      margin-top: 18px; padding: 16px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: var(--radius);
+      font-size: 14px; line-height: 1.55; color: var(--text);
+      display: none;
+    }
+    .quiz-explain.show { display: block; animation: fadeIn 0.3s ease; }
+    .quiz-explain strong { color: var(--accent-2); }
+    .quiz-explain.wrong {
+      background: rgba(248, 113, 113, 0.08);
+      border-color: rgba(248, 113, 113, 0.3);
+    }
+    .quiz-explain.wrong strong { color: var(--danger); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+    .quiz-actions {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      margin-top: 22px;
+    }
+    .quiz-skip { color: var(--text-muted); font-size: 14px; }
+    .quiz-skip:hover { color: var(--text); }
+    .quiz-result {
+      display: none; text-align: center; padding: 32px 20px;
+    }
+    .quiz-result.show { display: block; }
+    .quiz-result h3 { font-size: 26px; margin-bottom: 8px; }
+    .quiz-score {
+      font-size: 56px; font-weight: 800; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin: 12px 0;
+    }
+    .quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+
+    .quiz-side { display: grid; gap: 16px; }
+    .quiz-side-card {
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .quiz-side-card h4 {
+      font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .quiz-side-card ul { display: grid; gap: 8px; font-size: 14px; color: var(--text-muted); }
+    .quiz-side-card li { padding-left: 18px; position: relative; line-height: 1.5; }
+    .quiz-side-card li::before {
+      content: ''; position: absolute; left: 0; top: 8px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ---------- Flashcards / learning environment ---------- */
+    .flash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 920px) { .flash-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .flash-grid { grid-template-columns: 1fr; } }
+    .flash {
+      perspective: 1000px; height: 220px; cursor: pointer;
+    }
+    .flash-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flash.flipped .flash-inner { transform: rotateY(180deg); }
+    .flash-face {
+      position: absolute; inset: 0;
+      border-radius: var(--radius);
+      backface-visibility: hidden;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 20px;
+      border: 1px solid var(--border-strong);
+    }
+    .flash-front {
+      background: linear-gradient(135deg, rgba(110, 231, 183, 0.08), rgba(56, 189, 248, 0.08));
+    }
+    .flash-front .flash-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      color: var(--accent); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .flash-front h4 { font-size: 17px; line-height: 1.3; }
+    .flash-back {
+      background: var(--bg-elev-2);
+      transform: rotateY(180deg);
+      font-size: 14px; line-height: 1.55; color: var(--text);
+    }
+    .flash-back strong { color: var(--accent-2); }
+    .flash-hint {
+      position: absolute; bottom: 12px; right: 14px;
+      font-size: 11px; color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ---------- Common mistakes ---------- */
+    .mistakes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .mistakes-grid { grid-template-columns: 1fr; } }
+    .mistake {
+      padding: 20px; background: rgba(248, 113, 113, 0.05);
+      border: 1px solid rgba(248, 113, 113, 0.18);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--danger);
+    }
+    .mistake h4 { font-size: 15px; color: var(--danger); margin-bottom: 8px; }
+    .mistake p { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
     /* ---------- Pricing ---------- */
     .pricing-grid {
       display: grid;
@@ -862,6 +1038,8 @@
       <nav class="nav-links" aria-label="Navigare principala">
         <a href="#problema">Problema</a>
         <a href="#functionalitati">Functionalitati</a>
+        <a href="#quiz">Chestionare</a>
+        <a href="#mediu-invatare">Invata</a>
         <a href="#poveste">Poveste</a>
         <a href="#preturi">Preturi</a>
         <a href="#faq">Intrebari</a>
@@ -1129,6 +1307,245 @@
     </div>
   </section>
 
+  <!-- ===== Quiz (chestionare + mediu de invatare) ===== -->
+  <section id="quiz" style="background: linear-gradient(180deg, transparent 0%, rgba(56, 189, 248, 0.03) 50%, transparent 100%);">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Chestionare DRPCIV</span>
+        <h2 class="section-title">Incearca acum 5 intrebari reale din examenul teoretic</h2>
+        <p class="section-sub">
+          Aceleasi intrebari ca la scoala auto, cu explicatii pentru fiecare raspuns gresit. Dupa ce
+          termini, vezi scorul si pe ce capitol mai ai de lucru.
+        </p>
+      </div>
+
+      <div class="quiz-wrap">
+        <div class="quiz-card reveal">
+          <div class="quiz-meta">
+            <span class="pill" id="quiz-pill">Intrebarea 1 / 5</span>
+            <span id="quiz-cat-wrap"><span class="quiz-cat" id="quiz-cat">Semnale luminoase</span></span>
+          </div>
+          <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-bar"></div></div>
+
+          <div id="quiz-body">
+            <div class="quiz-q" id="quiz-q">Intrebare…</div>
+            <div class="quiz-opts" id="quiz-opts"></div>
+            <div class="quiz-explain" id="quiz-explain"></div>
+            <div class="quiz-actions">
+              <button class="quiz-skip" id="quiz-skip" type="button">Sari peste →</button>
+              <button class="btn btn-primary" id="quiz-next" type="button" disabled style="opacity:0.5">Urmatoarea intrebare →</button>
+            </div>
+          </div>
+
+          <div class="quiz-result" id="quiz-result">
+            <p style="color: var(--text-muted); font-size: 14px;">Scorul tau</p>
+            <div class="quiz-score" id="quiz-score">0 / 5</div>
+            <p id="quiz-msg" style="color: var(--text-muted); font-size: 15px; max-width: 380px; margin: 0 auto;">
+              Recomandare personalizata
+            </p>
+            <div class="quiz-result-actions">
+              <button class="btn btn-primary" id="quiz-restart" type="button">Incearca din nou</button>
+              <a href="#mediu-invatare" class="btn btn-ghost">Vreau sa invat mai intai</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="quiz-side reveal">
+          <div class="quiz-side-card">
+            <h4>Cum functioneaza</h4>
+            <ul>
+              <li>5 intrebari random din baza DRPCIV 2024-2026</li>
+              <li>Raspunzi, primesti feedback imediat</li>
+              <li>Explicatii clare pentru orice raspuns gresit</li>
+              <li>Scor final + recomandare pe capitol</li>
+            </ul>
+          </div>
+          <div class="quiz-side-card">
+            <h4>Sfat de parinte</h4>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.55; margin: 0;">
+              Fa impreuna cu elevul 10 intrebari pe zi. Dupa 2 saptamani, ratele de raspuns corect
+              cresc de la ~60% la ~90% - acesta e ritmul natural de invatare la proba teoretica.
+            </p>
+          </div>
+          <div class="quiz-side-card">
+            <h4>In aplicatia mobila</h4>
+            <p style="font-size: 14px; color: var(--text-muted); line-height: 1.55; margin: 0;">
+              Poti selecta categoria (semafoare, prioritate, distanta, viteza) si modul examen -
+              26 intrebari in 30 minute, identic cu conditiile reale de la DRPCIV.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Mediu de invatare (flashcards + erori comune) ===== -->
+  <section id="mediu-invatare">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Mediu de invatare</span>
+        <h2 class="section-title">Invata pe scurt, nu din manuale de 400 de pagini</h2>
+        <p class="section-sub">
+          9 flashcard-uri cu cele mai frecvente reguli pe care elevii le incurca la examen. Apasa
+          pentru a intoarce si a vedea raspunsul. Plus cele 6 greseli care picie 8 din 10 candidati.
+        </p>
+      </div>
+
+      <div class="flash-grid">
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">01 · Distante</span>
+              <h4>Care e distanta minima fata de vehiculul din fata in localitate?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Minim ~1 secunda</strong> la fiecare ~15 km/h. La 50 km/h in localitate, pastreaza ~3 lungimi de masina (~15 m). In afara localitatii, regula celor 2 secunde se aplica: alege un reper fix si numara "21, 22".</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">02 · Prioritate</span>
+              <h4>Cine are prioritate la o intersectie nedirijata?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Vehiculul care vine din dreapta</strong>, cu exceptia intersectiilor cu sens giratoriu (prioritate au cei din cerc) si a celor cu semn "Cedeaza trecerea". Autobuzele si tramvaiele au prioritate la iesirea din statie.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">03 · Viteza</span>
+              <h4>Care e viteza maxima in localitate fara limitare speciala?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>50 km/h</strong>. In afara localitatii: 90 km/h (130 km/h pe autostrada pentru categoria B). Pe drum cu zapada, ploaie torentiala sau vizibilitate sub 100 m: <strong>reducere cu 20 km/h</strong> fara a depasi 50 km/h in localitate.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">04 · Lumini</span>
+              <h4>Ce lumini folosesti pe timp de zi in afara localitatii?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Lumile de intalnire (faza scurta)</strong> sunt obligatorii si ziua, in afara localitatii. Faza lunga se foloseste noaptea pe drum neiluminat, cu obligatia comutarii pe faza scurta la intalnirea altui vehicul sau la distanta de 200 m in fata.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">05 · Alcool</span>
+              <h4>Care e limita de alcool in sange pentru soferii cu vechime sub 1 an?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>0.00 g/l</strong> - toleranta zero. Pentru soferii cu experienta, limita este 0.40 g/l aer expirat (0,80 g/l sange). O bere consumata se elimina complet in ~3-4 ore la un adult de 80 kg - dar acest timp variaza mult.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">06 · Oprire</span>
+              <h4>Unde NU ai voie sa opresti cu masina?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Pe trecerea de pietoni, pe pista de biciclete, la mai putin de 25 m de colt</strong> la intersectii, pe poduri, in tuneluri, pe banda de urgenta a autostrazii. Oprirea = stationare pentru imbarcare/debarcare; stationarea = parcare mai lunga de 5 minute.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">07 · Centura</span>
+              <h4>Cine trebuie sa poarte centura in masina?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Toti ocupantii</strong>, fara exceptie. Copiii sub 12 ani sau sub 150 cm trebuie sa foloseasca sistem de retinere adaptat varstei (scaun auto sau inaltator). Soferul raspunde contraventional daca un pasager din spate nu poarta centura.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">08 · Depasire</span>
+              <h4>Pe ce banda se depaseste?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Doar pe banda din stanga</strong>, pe drumuri cu sens unic sau cu dublu sens unde marcajul permite. Este interzisa depasirea: pe trecere de pietoni, in intersectie nedirijata, la curba, pe pod, in tunel, la cota maxima. Depasirea tramvaiului: pe dreapta doar daca are cale proprie si sens unic.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flash reveal" data-flip>
+          <div class="flash-inner">
+            <div class="flash-face flash-front">
+              <span class="flash-tag">09 · Permis</span>
+              <h4>Ce trebuie sa ai obligatoriu la tine cand conduci?</h4>
+              <span class="flash-hint">Click →</span>
+            </div>
+            <div class="flash-face flash-back">
+              <p><strong>Permisul de conducere, certificatul de inmatriculare, asigurarea RCA</strong> si cartea de identitate (pentru persoane fizice). ITP-ul este obligatoriu pentru masini mai vechi de 3 ani (anual dupa 8 ani). Fara aceste documente = amenda + retinere permis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 56px;">
+        <div class="section-head reveal" style="text-align: left; margin-bottom: 24px;">
+          <span class="section-eyebrow">Erori care picie 8 din 10 candidati</span>
+          <h3 class="section-title" style="font-size: 28px;">Cele 6 greseli pe care le vedem la toti elevii</h3>
+        </div>
+
+        <div class="mistakes-grid">
+          <div class="mistake reveal">
+            <h4>❌ Confunda "oprire" cu "stationare"</h4>
+            <p>Oprirea inseamna imbarcare/debarcare pasageri sau incarcare/descarcare. Stationarea inseamna parcare mai lunga de 5 minute. Reguli diferite, amenzi diferite - multi elevi raspund gresit la aceasta intrebare.</p>
+          </div>
+          <div class="mistake reveal">
+            <h4>❌ Nu stiu ca 50 km/h e limita implicita in localitate</h4>
+            <p>Unii cred ca limita e 60 sau 70 km/h. Daca nu exista semn, se aplica regula generala: 50 km/h in localitate, 90 km/h in afara. Marcajul rutier poate reduce, nu poate creste limita fara semn.</p>
+          </div>
+          <div class="mistake reveal">
+            <h4>❌ Incurca "Cedeaza trecerea" cu "Oprire obligatorie"</h4>
+            <p>Cedeaza = redu viteza si trece daca e liber. STOP = opreste complet, chiar daca pare liber. Multi trec prin STOP fara sa opreasca - principala cauza de respingere la proba practica.</p>
+          </div>
+          <div class="mistake reveal">
+            <h4>❌ Nu verifica oglinzile la marsarier</h4>
+            <p>Marsarierul se face DOAR dupa ce ai verificat oglinzile laterale si oglinda centrala, plus ai observant direct peste umar. 70% din candidatii respinsi la proba practica uita acest pas la plecare sau la intrarea in parcare.</p>
+          </div>
+          <div class="mistake reveal">
+            <h4>❌ Foloseste faza lunga la intalnirea altui vehicul</h4>
+            <p>Comutarea pe faza scurta se face la 200 m in fata de vehiculul care vine din sens opus si imediat la 100 m in spatele celui depasit. Daca nu comuti, orbesti pe celalalt sofer - 9 puncte penalizare la examen.</p>
+          </div>
+          <div class="mistake reveal">
+            <h4>❌ Nu acorda prioritate la trecerea de pietoni</h4>
+            <p>Chiar daca nu e nimeni pe trecere, reducerea vitezei e obligatorie cand te apropii. Prioritate au pietonii care intentioneaza clar sa treaca, dar gresit e sa accelerezi. Multi elevi pierd examenul din neatentie la o trecere.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Pricing ===== -->
   <section id="preturi">
     <div class="container">
@@ -1278,6 +1695,8 @@
         <div class="footer-col">
           <h5>Produs</h5>
           <a href="#functionalitati">Functionalitati</a>
+          <a href="#quiz">Chestionare DRPCIV</a>
+          <a href="#mediu-invatare">Mediu de invatare</a>
           <a href="#preturi">Preturi</a>
           <a href="#faq">Intrebari frecvente</a>
           <a href="#start">Descarca</a>
@@ -1320,6 +1739,176 @@
         }
       });
     });
+
+    // ----- Flashcards (click to flip) -----
+    document.querySelectorAll('[data-flip]').forEach((card) => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Intoarce flashcard-ul');
+    });
+
+    // ----- DRPCIV quiz (sample, real questions in app) -----
+    const QUIZ_QUESTIONS = [
+      {
+        cat: 'Semnale luminoase',
+        q: 'Ce inseamna lumina galbena intermitenta la un semafor?',
+        opts: [
+          { k: 'A', t: 'Opreste-te si asteapta culoarea verde', correct: false, exp: 'Lumina galbena intermitenta NU inseamna oprire. E un avertisment: "atentie, traversam o intersectie periculoasa" - redu viteza si continua cu prudenta, cedand prioritate.' },
+          { k: 'B', t: 'Atentie, zona cu risc - redu viteza si continua', correct: true, exp: 'Corect! Galben intermitent = atentie, redu viteza, dar NU opresti. Ai prioritate doar daca esti pe drumul principal si intersectia e cu semn "Drum cu prioritate".' },
+          { k: 'C', t: 'Cedeaza trecerea vehiculelor din dreapta', correct: false, exp: 'Nu e regula generala la galben intermitent. Poti trece, dar cu prudenta maxima. La intersectia nedirijata, prioritatea se aplica - dar asta e o alta intrebare.' },
+          { k: 'D', t: 'Schimba banda obligatoriu', correct: false, exp: 'Nu exista o astfel de regula la galben intermitent. Banda se schimba doar cu semn sau marcaj specific.' }
+        ]
+      },
+      {
+        cat: 'Distante & viteza',
+        q: 'Care este viteza maxima admisa in localitate, in lipsa unui semn de limitare?',
+        opts: [
+          { k: 'A', t: '30 km/h', correct: false, exp: '30 km/h se aplica doar in zone speciale (scoli, zone rezidentiale cu semn). Nu e regula generala.' },
+          { k: 'B', t: '50 km/h', correct: true, exp: 'Corect! 50 km/h este limita implicita in localitate conform Codului Rutier. In afara localitatii: 90 km/h, autostrada: 130 km/h (categoria B).' },
+          { k: 'C', t: '60 km/h', correct: false, exp: '60 km/h nu e limita standard in Romania. Doar pe anumite sectoare de drum national, cu semn explicit.' },
+          { k: 'D', t: '70 km/h', correct: false, exp: 'Nu. 70 km/h nu apare ca limita standard pe niciun drum public din Romania.' }
+        ]
+      },
+      {
+        cat: 'Prioritate',
+        q: 'La o intersectie nedirijata, cine are prioritate?',
+        opts: [
+          { k: 'A', t: 'Vehiculul care vine din stanga', correct: false, exp: 'E exact invers! Din dreapta, nu din stanga. E una din cele mai frecvente greseli la examen.' },
+          { k: 'B', t: 'Vehiculul care vine din dreapta', correct: true, exp: 'Corect! La intersectia nedirijata (fara semafor, fara indicatoare), prioritate are vehiculul care vine din partea ta dreapta. Exceptii: sens giratoriu, semne de prioritate, intersectii cu cale ferata.' },
+          { k: 'C', t: 'Vehiculul mai rapid', correct: false, exp: 'Nu. Viteza nu conteaza la stabilirea prioritatii - conteaza doar pozitia. Cel din dreapta are prioritate.' },
+          { k: 'D', t: 'Autobuzul intotdeauna', correct: false, exp: 'Autobuzul are prioritate doar la iesirea din statie cu semn, nu la intersectii nedirijate.' }
+        ]
+      },
+      {
+        cat: 'Oprire & stationare',
+        q: 'Unde este INTERZISA oprirea vehiculului?',
+        opts: [
+          { k: 'A', t: 'Pe drumurile cu sens unic', correct: false, exp: 'Oprirea e permisa pe sens unic, respectand regulile generale. Nu e interzisa prin definitie.' },
+          { k: 'B', t: 'Pe trecerea de pietoni sau la mai putin de 25 m inainte de aceasta', correct: true, exp: 'Corect! Oprirea si stationarea sunt INTERZISE pe trecerea de pietoni si in zona de 25 m inainte. De asemenea: pe pista de biciclete, pe poduri, in tuneluri, pe banda de urgenta.' },
+          { k: 'C', t: 'In fata garajelor, daca exista semn', correct: false, exp: 'Oprirea in fata garajelor e permisa daca NU exista semn de interzicere. Cu semn, e evident interzisa.' },
+          { k: 'D', t: 'In dreptul statiilor de autobuz', correct: false, exp: 'Statiile de autobuz sunt zone speciale - oprirea e permisa pentru autobuze, dar NU pentru masini particulare. Asadar, raspunsul corect e cel cu trecerea de pietoni.' }
+        ]
+      },
+      {
+        cat: 'Semafoare & indicatoare',
+        q: 'Ce semnifica indicatorul "Cedeaza trecerea" (triunghi cu varful in jos)?',
+        opts: [
+          { k: 'A', t: 'Opreste-te obligatoriu la linia stop', correct: false, exp: 'E diferenta intre "Cedeaza trecerea" (triunghi) si "STOP" (octagon). Cedeaza = redu si treci daca e liber. STOP = opreste complet, chiar daca pare gol.' },
+          { k: 'B', t: 'Redu viteza si cedeaza trecerea vehiculelor de pe drumul prioritar', correct: true, exp: 'Corect! "Cedeaza trecerea" inseamna redu viteza si lasa sa treaca vehiculele care vin de pe drumul cu prioritate. NU opresti complet daca drumul e liber.' },
+          { k: 'C', t: 'Ai prioritate fata de toti ceilalti', correct: false, exp: 'Nu, exact invers: acest indicator iti spune ca NU ai prioritate, trebuie sa cedezi.' },
+          { k: 'D', t: 'Esti pe drum cu prioritate', correct: false, exp: 'Nu - "Cedeaza trecerea" e opusul prioritatii. Semaforul pentru tine e "treci cu prudenta daca drumul e liber".' }
+        ]
+      }
+    ];
+
+    const quizState = { i: 0, score: 0, answered: false };
+    const $ = (id) => document.getElementById(id);
+    const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
+
+    function loadQuestion() {
+      const q = QUIZ_QUESTIONS[quizState.i];
+      $('quiz-pill').textContent = `Intrebarea ${quizState.i + 1} / ${QUIZ_QUESTIONS.length}`;
+      $('quiz-cat').textContent = q.cat;
+      $('quiz-bar').style.width = `${(quizState.i / QUIZ_QUESTIONS.length) * 100}%`;
+      $('quiz-q').textContent = q.q;
+      $('quiz-opts').innerHTML = '';
+      $('quiz-explain').className = 'quiz-explain';
+      $('quiz-explain').textContent = '';
+      $('quiz-next').disabled = true;
+      $('quiz-next').style.opacity = '0.5';
+      quizState.answered = false;
+
+      const shuffled = shuffle(q.opts);
+      shuffled.forEach((o) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-opt';
+        btn.innerHTML = `<span class="key">${o.k}</span><span>${o.t}</span>`;
+        btn.addEventListener('click', () => handleAnswer(btn, o, shuffled));
+        $('quiz-opts').appendChild(btn);
+      });
+    }
+
+    function handleAnswer(btn, opt, all) {
+      if (quizState.answered) return;
+      quizState.answered = true;
+      const correctBtn = Array.from($('quiz-opts').children).find((b, i) => all[i].correct);
+      if (opt.correct) {
+        btn.classList.add('correct');
+        quizState.score++;
+      } else {
+        btn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+      }
+      document.querySelectorAll('.quiz-opt').forEach((b) => (b.disabled = true));
+      const exp = $('quiz-explain');
+      exp.innerHTML = `<strong>${opt.correct ? '✓ Corect!' : '✗ Gresit.'}</strong> ${opt.exp}`;
+      exp.className = 'quiz-explain show';
+      $('quiz-next').disabled = false;
+      $('quiz-next').style.opacity = '1';
+    }
+
+    function nextQuestion() {
+      if (quizState.i < QUIZ_QUESTIONS.length - 1) {
+        quizState.i++;
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      $('quiz-body').style.display = 'none';
+      $('quiz-result').classList.add('show');
+      $('quiz-bar').style.width = '100%';
+      const pct = Math.round((quizState.score / QUIZ_QUESTIONS.length) * 100);
+      $('quiz-score').textContent = `${quizState.score} / ${QUIZ_QUESTIONS.length}`;
+      let msg = '';
+      if (pct === 100) msg = 'Excelent! Esti pregatit pentru proba teoretica. Continua cu recapitularea pe capitole.';
+      else if (pct >= 80) msg = 'Foarte bine! Recapituleaza capitolele unde ai gresit si esti gata de examen.';
+      else if (pct >= 60) msg = 'Bine. Mai exerseaza pe categoriile cu erori - flashcard-urile te vor ajuta.';
+      else msg = 'Ai nevoie de mai mult timp de studiu. Incepe cu cele 9 flashcard-uri de mai jos.';
+      $('quiz-msg').textContent = msg;
+    }
+
+    function restartQuiz() {
+      quizState.i = 0;
+      quizState.score = 0;
+      $('quiz-body').style.display = 'block';
+      $('quiz-result').classList.remove('show');
+      loadQuestion();
+    }
+
+    $('quiz-next').addEventListener('click', nextQuestion);
+    $('quiz-skip').addEventListener('click', () => {
+      if (!quizState.answered) {
+        // Mark as skipped (no point added, show correct)
+        const q = QUIZ_QUESTIONS[quizState.i];
+        const correctIdx = q.opts.findIndex((o) => o.correct);
+        const btns = document.querySelectorAll('.quiz-opt');
+        btns[correctIdx].classList.add('correct');
+        btns.forEach((b) => (b.disabled = true));
+        const exp = $('quiz-explain');
+        exp.innerHTML = `<strong>↷ Ai sarit peste.</strong> Raspuns corect: <strong>${q.opts[correctIdx].t}</strong>. ${q.opts[correctIdx].exp}`;
+        exp.className = 'quiz-explain show';
+        $('quiz-next').disabled = false;
+        $('quiz-next').style.opacity = '1';
+        quizState.answered = true;
+      } else {
+        nextQuestion();
+      }
+    });
+    $('quiz-restart').addEventListener('click', restartQuiz);
+
+    // Init
+    if (document.getElementById('quiz')) loadQuestion();
   </script>
 </body>
 </html>
