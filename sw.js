@@ -4,7 +4,8 @@ const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './questions.json'
+  './questions.json',
+  './manevre.js'
 ];
 
 self.addEventListener('install', (e) => {

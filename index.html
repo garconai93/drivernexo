@@ -940,6 +940,126 @@
     }
     .learn-progress .pct { margin-left: auto; font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700; }
 
+    /* ---------- Practical exam (14 maneuvers) ---------- */
+    .maneuver-overview {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 920px) { .maneuver-overview { grid-template-columns: repeat(2, 1fr); } }
+    .ov-stat {
+      padding: 16px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      text-align: center;
+    }
+    .ov-stat .num {
+      font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      line-height: 1;
+    }
+    .ov-stat .label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .maneuver-list { display: grid; gap: 14px; }
+    .maneuver {
+      background: var(--bg-elev); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color 0.15s ease;
+    }
+    .maneuver:hover { border-color: var(--border-strong); }
+    .maneuver-head {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px; cursor: pointer;
+      user-select: none;
+    }
+    .maneuver-icon {
+      flex-shrink: 0; width: 44px; height: 44px;
+      display: grid; place-items: center; font-size: 22px;
+      background: rgba(255,255,255,0.04); border-radius: 10px;
+    }
+    .maneuver-info { flex: 1; min-width: 0; }
+    .maneuver-name { font-size: 16px; font-weight: 600; color: var(--text); }
+    .maneuver-desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .maneuver-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .maneuver-toggle {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-muted); width: 36px; height: 36px;
+      border-radius: 8px; cursor: pointer; display: grid; place-items: center;
+      font-size: 16px; transition: all 0.15s ease;
+    }
+    .maneuver-toggle:hover { background: rgba(255,255,255,0.10); color: var(--text); }
+    .maneuver.ok .maneuver-head { border-left: 3px solid var(--accent); }
+    .maneuver.ok .maneuver-icon { background: rgba(110, 231, 183, 0.15); }
+    .maneuver.needs-work .maneuver-head { border-left: 3px solid var(--accent-warm); }
+    .maneuver.needs-work .maneuver-icon { background: rgba(251, 191, 36, 0.15); }
+    .maneuver.never .maneuver-head { border-left: 3px solid var(--text-dim); }
+
+    .maneuver-body {
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+      padding: 0 18px;
+    }
+    .maneuver.open .maneuver-body { max-height: 800px; padding-bottom: 16px; }
+
+    .maneuver-criteria { display: grid; gap: 8px; margin: 14px 0; }
+    .criterion {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 14px; background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: background 0.15s ease;
+    }
+    .criterion:hover { background: rgba(255,255,255,0.05); }
+    .criterion .check {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+      border: 2px solid var(--border-strong);
+      display: grid; place-items: center;
+      transition: all 0.15s ease;
+    }
+    .criterion.done { background: rgba(110, 231, 183, 0.08); border-color: var(--accent); }
+    .criterion.done .check { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .criterion.done .check::after { content: '\2713'; font-weight: 800; font-size: 14px; }
+    .criterion .txt { font-size: 14px; color: var(--text); line-height: 1.5; }
+    .criterion.done .txt { color: var(--text); text-decoration: line-through; opacity: 0.6; }
+
+    .maneuver-score {
+      display: flex; gap: 10px; align-items: center; margin-top: 14px;
+      padding: 12px 14px; background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border); border-radius: 8px;
+    }
+    .maneuver-score label { font-size: 13px; color: var(--text-muted); }
+    .star-row { display: flex; gap: 4px; }
+    .star {
+      background: none; border: none; cursor: pointer;
+      font-size: 22px; color: var(--text-dim); padding: 0;
+      transition: color 0.15s ease;
+    }
+    .star:hover, .star.active { color: var(--accent-warm); }
+    .star.active { color: #fbbf24; }
+
+    .maneuver-notes {
+      width: 100%; margin-top: 12px; padding: 10px 14px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 14px;
+      font-family: inherit; resize: vertical; min-height: 60px;
+    }
+    .maneuver-notes:focus { outline: none; border-color: var(--accent); }
+
+    .maneuver-status-btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .status-btn {
+      padding: 8px 14px; border-radius: 8px; cursor: pointer;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text-muted); font-size: 13px;
+      transition: all 0.15s ease;
+    }
+    .status-btn:hover { background: rgba(255,255,255,0.10); color: var(--text); }
+    .status-btn.active.ok { background: rgba(110, 231, 183, 0.15); border-color: var(--accent); color: var(--accent); }
+    .status-btn.active.needs-work { background: rgba(251, 191, 36, 0.15); border-color: var(--accent-warm); color: var(--accent-warm); }
+
+    .maneuver-export-bar {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 20px; padding: 16px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
     /* ---------- Common mistakes ---------- */
     .mistakes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     @media (max-width: 720px) { .mistakes-grid { grid-template-columns: 1fr; } }
@@ -1256,6 +1376,7 @@
         <a href="#functionalitati">Functionalitati</a>
         <a href="#quiz">Chestionare</a>
         <a href="#mediu-invatare">Invata</a>
+        <a href="#proba-practica">Proba practica</a>
         <a href="#progres">Progres</a>
         <a href="#poveste">Poveste</a>
         <a href="#preturi">Preturi</a>
@@ -1693,6 +1814,39 @@
     </div>
   </section>
 
+  <!-- ===== Proba practica (14 manevre DRPCIV) ===== -->
+  <section id="proba-practica">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">Proba practica</span>
+        <h2 class="section-title">Cele 14 manevre oficiale DRPCIV, cu checklist si scor de la parinte</h2>
+        <p class="section-sub">
+          Dupa fiecare ora de condus, notezi scorul 1-5 la fiecare manevra si bifezi ce a reusit elevul.
+          La final, exporti un dosar PDF pentru scoala auto. Totul se salveaza local pe telefonul tau.
+        </p>
+      </div>
+
+      <div class="maneuver-overview reveal" id="maneuver-overview">
+        <div class="ov-stat"><div class="num" id="ov-done">0</div><div class="label">Reusite</div></div>
+        <div class="ov-stat"><div class="num" id="ov-work">0</div><div class="label">Necesita lucru</div></div>
+        <div class="ov-stat"><div class="num" id="ov-never">14</div><div class="label">Nealese</div></div>
+        <div class="ov-stat"><div class="num" id="ov-avg">—</div><div class="label">Scor mediu</div></div>
+      </div>
+
+      <div class="maneuver-list reveal" id="maneuver-list">
+        <div class="learn-empty">Se incarca lista celor 14 manevre...</div>
+      </div>
+
+      <div class="maneuver-export-bar reveal" id="maneuver-export-bar" style="display:none;">
+        <button class="btn btn-primary" id="btn-export-pdf" type="button">📄 Exporta dosar PDF</button>
+        <button class="btn btn-ghost" id="btn-reset-manevre" type="button">Reseteaza tot</button>
+        <span style="margin-left:auto; font-size: 13px; color: var(--text-muted); align-self: center;">
+          Dosar complet = dosar gata de predat la scoala auto
+        </span>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Pricing ===== -->
   <section id="preturi">
     <div class="container">
@@ -1844,6 +1998,7 @@
           <a href="#functionalitati">Functionalitati</a>
           <a href="#quiz">Chestionare DRPCIV</a>
           <a href="#mediu-invatare">Mediu de invatare</a>
+          <a href="#proba-practica">Proba practica</a>
           <a href="#progres">Progresul tau</a>
           <a href="#preturi">Preturi</a>
           <a href="#faq">Intrebari frecvente</a>
@@ -1864,6 +2019,7 @@
     </div>
   </footer>
 
+  <script src="manevre.js"></script>
   <script>
     // ----- Reveal on scroll -----
     const io = new IntersectionObserver((entries) => {
@@ -2902,6 +3058,230 @@
         LEARN_SORT = e.target.value;
         renderLearnList();
       });
+    }
+
+    // ====== Practical exam (14 manevre DRPCIV) ======
+    const MANEVRES_KEY = 'deb.manevre.v1';
+    function loadManevreData() {
+      try { return JSON.parse(localStorage.getItem(MANEVRES_KEY)) || {}; } catch { return {}; }
+    }
+    function saveManevreData(d) { localStorage.setItem(MANEVRES_KEY, JSON.stringify(d)); }
+    function getManeuvre(id) { return loadManevreData()[id] || { status: 'never', criteria: {}, score: 0, notes: '' }; }
+    function setManeuvre(id, patch) {
+      const d = loadManevreData();
+      d[id] = { ...getManeuvre(id), ...patch };
+      saveManevreData(d);
+      renderManeuverOverview();
+    }
+
+    function renderManeuverOverview() {
+      if (!window.DRIVER_NEXO_MANEVRES) return;
+      const data = loadManevreData();
+      let ok = 0, work = 0, totalScore = 0, scored = 0;
+      window.DRIVER_NEXO_MANEVRES.forEach(m => {
+        const d = data[m.id];
+        if (!d || d.status === 'never') return;
+        if (d.status === 'ok') ok++;
+        else if (d.status === 'needs-work') work++;
+        if (d.score) { totalScore += d.score; scored++; }
+      });
+      $('ov-done').textContent = ok;
+      $('ov-work').textContent = work;
+      $('ov-never').textContent = window.DRIVER_NEXO_MANEVRES.length - ok - work;
+      $('ov-avg').textContent = scored ? (totalScore / scored).toFixed(1) : '—';
+      $('maneuver-export-bar').style.display = (ok + work) > 0 ? 'flex' : 'none';
+    }
+
+    function renderManeuverList() {
+      if (!window.DRIVER_NEXO_MANEVRES) {
+        $('maneuver-list').innerHTML = '<div class="learn-empty">❌ Eroare: nu s-au incarcat manevrele. Reincarca pagina.</div>';
+        return;
+      }
+      const data = loadManevreData();
+      let html = '';
+      window.DRIVER_NEXO_MANEVRES.forEach((m, i) => {
+        const d = data[m.id] || { status: 'never', criteria: {}, score: 0, notes: '' };
+        const criteriaHtml = m.criteria.map((c, ci) => {
+          const done = d.criteria && d.criteria[ci];
+          return `<div class="criterion${done ? ' done' : ''}" data-mid="${m.id}" data-cidx="${ci}"><div class="check"></div><div class="txt">${escapeHtml(c)}</div></div>`;
+        }).join('');
+        const stars = [1,2,3,4,5].map(n => `<button class="star${d.score && d.score >= n ? ' active' : ''}" data-mid="${m.id}" data-score="${n}" type="button">★</button>`).join('');
+        html += `<div class="maneuver ${d.status === 'ok' ? 'ok' : d.status === 'needs-work' ? 'needs-work' : 'never'}" data-mid="${m.id}">
+          <div class="maneuver-head">
+            <div class="maneuver-icon">${m.icon}</div>
+            <div class="maneuver-info">
+              <div class="maneuver-name">${i + 1}. ${escapeHtml(m.name)}</div>
+              <div class="maneuver-desc">${escapeHtml(m.desc)}</div>
+            </div>
+            <div class="maneuver-actions">
+              <button class="maneuver-toggle" data-act="toggle" type="button" aria-label="Expand">▾</button>
+            </div>
+          </div>
+          <div class="maneuver-body">
+            <div class="maneuver-criteria">${criteriaHtml}</div>
+            <div class="maneuver-score">
+              <label>Scor parinte (1-5):</label>
+              <div class="star-row">${stars}</div>
+            </div>
+            <textarea class="maneuver-notes" data-mid="${m.id}" placeholder="Observatii parinte: ce a mers bine, ce are de lucru...">${escapeHtml(d.notes || '')}</textarea>
+            <div class="maneuver-status-btns">
+              <button class="status-btn${d.status === 'ok' ? ' active ok' : ''}" data-mid="${m.id}" data-status="ok" type="button">✓ Reusita</button>
+              <button class="status-btn${d.status === 'needs-work' ? ' active needs-work' : ''}" data-mid="${m.id}" data-status="needs-work" type="button">⚠ Necesita lucru</button>
+              <button class="status-btn${d.status === 'never' ? ' active' : ''}" data-mid="${m.id}" data-status="never" type="button">○ Nealata</button>
+            </div>
+          </div>
+        </div>`;
+      });
+      $('maneuver-list').innerHTML = html;
+
+      // Bind events
+      $('maneuver-list').querySelectorAll('.maneuver-head').forEach(head => {
+        head.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          const m = head.closest('.maneuver');
+          m.classList.toggle('open');
+          head.querySelector('.maneuver-toggle').textContent = m.classList.contains('open') ? '▴' : '▾';
+        });
+      });
+      $('maneuver-list').querySelectorAll('.maneuver-toggle').forEach(b => {
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const m = b.closest('.maneuver');
+          m.classList.toggle('open');
+          b.textContent = m.classList.contains('open') ? '▴' : '▾';
+        });
+      });
+      $('maneuver-list').querySelectorAll('.criterion').forEach(c => {
+        c.addEventListener('click', () => {
+          const mid = c.dataset.mid, cidx = c.dataset.cidx;
+          const d = loadManevreData();
+          d[mid] = d[mid] || { status: 'never', criteria: {}, score: 0, notes: '' };
+          d[mid].criteria = d[mid].criteria || {};
+          d[mid].criteria[cidx] = !d[mid].criteria[cidx];
+          saveManevreData(d);
+          c.classList.toggle('done');
+        });
+      });
+      $('maneuver-list').querySelectorAll('.star').forEach(s => {
+        s.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mid = s.dataset.mid, score = parseInt(s.dataset.score);
+          setManeuvre(mid, { score });
+          const row = s.parentElement;
+          row.querySelectorAll('.star').forEach((ss, i) => {
+            ss.classList.toggle('active', i < score);
+          });
+        });
+      });
+      $('maneuver-list').querySelectorAll('.maneuver-notes').forEach(n => {
+        n.addEventListener('input', () => {
+          const mid = n.dataset.mid;
+          setManeuvre(mid, { notes: n.value });
+        });
+      });
+      $('maneuver-list').querySelectorAll('.status-btn').forEach(b => {
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mid = b.dataset.mid, status = b.dataset.status;
+          setManeuvre(mid, { status });
+          const m = b.closest('.maneuver');
+          m.classList.remove('ok', 'needs-work', 'never');
+          m.classList.add(status);
+          b.closest('.maneuver-status-btns').querySelectorAll('.status-btn').forEach(sb => {
+            sb.classList.toggle('active', sb === b);
+            if (sb === b) {
+              if (status === 'ok') sb.classList.add('ok');
+              if (status === 'needs-work') sb.classList.add('needs-work');
+            } else {
+              sb.classList.remove('ok', 'needs-work');
+            }
+          });
+        });
+      });
+    }
+
+    function resetManevre() {
+      if (!confirm('Sigur stergi progresul pentru toate manevrele?')) return;
+      localStorage.removeItem(MANEVRES_KEY);
+      renderManeuverList();
+      renderManeuverOverview();
+    }
+
+    function exportManeuvresPDF() {
+      // Simple text-based print fallback (no extra deps). Uses window.print() with a styled block.
+      const data = loadManevreData();
+      const date = new Date().toLocaleDateString('ro-RO');
+      let rows = '';
+      window.DRIVER_NEXO_MANEVRES.forEach((m, i) => {
+        const d = data[m.id] || { status: 'never', criteria: {}, score: 0, notes: '' };
+        const statusText = d.status === 'ok' ? 'REUSITA' : d.status === 'needs-work' ? 'NECESITA LUCRU' : 'NEALATA';
+        const scoreText = d.score ? d.score + '/5' : '-';
+        const checkedCriteria = m.criteria.filter((_, ci) => d.criteria && d.criteria[ci]).length;
+        rows += `<tr>
+          <td style="padding:8px;border:1px solid #ccc;">${i+1}</td>
+          <td style="padding:8px;border:1px solid #ccc;"><strong>${m.name}</strong><br><small>${m.desc}</small></td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:center;"><strong>${statusText}</strong></td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:center;">${scoreText}</td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:center;">${checkedCriteria}/${m.criteria.length}</td>
+          <td style="padding:8px;border:1px solid #ccc;font-size:12px;">${d.notes || '-'}</td>
+        </tr>`;
+      });
+      const totalOk = window.DRIVER_NEXO_MANEVRES.filter(m => data[m.id] && data[m.id].status === 'ok').length;
+      const avgScore = (() => {
+        const scored = window.DRIVER_NEXO_MANEVRES.filter(m => data[m.id] && data[m.id].score).map(m => data[m.id].score);
+        return scored.length ? (scored.reduce((a,b) => a+b, 0) / scored.length).toFixed(1) : '-';
+      })();
+      const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Dosar DRPCIV - ${date}</title>
+        <style>
+          body { font-family: -apple-system, system-ui, sans-serif; padding: 32px; color: #111; max-width: 900px; margin: 0 auto; }
+          h1 { margin: 0 0 8px; font-size: 24px; }
+          .meta { color: #666; font-size: 14px; margin-bottom: 24px; }
+          table { width: 100%; border-collapse: collapse; font-size: 13px; }
+          th { background: #f3f4f6; padding: 10px 8px; border: 1px solid #ccc; text-align: left; }
+          .summary { margin: 24px 0; padding: 16px; background: #f9fafb; border-radius: 8px; display: flex; gap: 32px; }
+          .summary .item { text-align: center; }
+          .summary .num { font-size: 28px; font-weight: 800; color: #2563eb; }
+          .summary .label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+          .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 11px; color: #666; }
+          @media print { .no-print { display: none; } }
+        </style></head><body>
+        <h1>Dosar DRPCIV - Proba practica categoria B</h1>
+        <div class="meta">Generat ${date} prin DriverNexo (driveredbuddy → rebranded 2026-09-19)</div>
+        <div class="summary">
+          <div class="item"><div class="num">${totalOk}</div><div class="label">Manevre reusite</div></div>
+          <div class="item"><div class="num">${avgScore}</div><div class="label">Scor mediu (1-5)</div></div>
+          <div class="item"><div class="num">${window.DRIVER_NEXO_MANEVRES.length}</div><div class="label">Total manevre</div></div>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Manevra</th><th>Status</th><th>Scor</th><th>Criterii bifate</th><th>Observatii parinte</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="footer">Document generat local, fara cont. Valabil pentru dosarul depus la scoala auto.</div>
+        <div class="no-print" style="margin-top:24px;text-align:center;">
+          <button onclick="window.print()" style="padding:10px 20px;background:#111;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px;">Printeaza / Salveaza ca PDF</button>
+        </div>
+        </body></html>`;
+      const w = window.open('', '_blank');
+      if (!w) { alert('Blochezi popup-urile. Permite-le pentru a exporta.'); return; }
+      w.document.write(html);
+      w.document.close();
+    }
+
+    if (document.getElementById('proba-practica')) {
+      // Lazy render on scroll
+      const sect = document.getElementById('proba-practica');
+      const obs = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && window.DRIVER_NEXO_MANEVRES) {
+            renderManeuverList();
+            renderManeuverOverview();
+            obs.unobserve(sect);
+          }
+        }
+      }, { rootMargin: '200px' });
+      obs.observe(sect);
+      $('btn-reset-manevre') && $('btn-reset-manevre').addEventListener('click', resetManevre);
+      $('btn-export-pdf') && $('btn-export-pdf').addEventListener('click', exportManeuvresPDF);
     }
 
     // ====== PWA: register service worker ======
